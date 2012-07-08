@@ -1,0 +1,132 @@
+#!/bin/bash
+
+if test -z "$1"; then
+    echo "Usage is $0 INSTALL_LOCATION"
+    exit 1
+fi
+
+if test -d "$1"; then
+    echo "Install location $1 already exists."
+    exit 1
+fi
+
+mkdir -p $1 2>/dev/null
+if test $? -ne 0; then
+    echo "Failed to create dir $1 check your permissions."
+    exit 1
+fi
+
+dir=`readlink -f $1`
+cd $dir
+
+echo CLONING REPOS
+git clone -q https://github.com/renasboy/php-mysql-micro-framework-core core
+git clone -q https://github.com/renasboy/php-mysql-micro-framework-api api
+git clone -q https://github.com/renasboy/php-mysql-micro-framework app
+git clone -q https://github.com/renasboy/canistro-api canistro-api
+git clone -q https://github.com/renasboy/canistro canistro
+
+echo CONFIG API
+cd $dir/canistro-api
+
+echo ASK FOR VALUES
+read -p "Database user (to create db) [Default: root]: " db_user
+read -s -p "Database pass [Default: empty]: " db_pass
+echo
+read -p "Database name (will be removed first) [Default: canistro]: " db_name
+
+echo REPLACE VALUES
+sed -i \
+    -e 's@^core_root=.*$@core_root='$dir'/core@' \
+    -e 's@^db_user=.*$@db_user='${db_user:-root}'@' \
+    -e 's@^db_pass=.*$@db_pass='$db_pass'@' \
+    -e 's@^db_name=.*$@db_name='${db_name:-canistro}'@' etc/api.dev.ini
+
+ln -sf api.dev.ini etc/api.ini
+ln -sf ../api/lib .
+
+echo MAKE API
+./bin/make
+
+echo INSTALL DB
+./bin/db
+
+echo CONFIG APP
+cd $dir/canistro
+
+host=`hostname -f`
+
+echo ASK FOR VALUES
+read -p "Base host (to create links) [Default: canistro.$host]: " base_host
+read -p "CDN 1 host (1 of 4) [Default: cdn1.$host]: " cdn1_host
+read -p "CDN 2 host (2 of 4) [Default: cdn2.$host]: " cdn2_host
+read -p "CDN 3 host (3 of 4) [Default: cdn3.$host]: " cdn3_host
+read -p "CDN 4 host (4 of 4) [Default: cdn4.$host]: " cdn4_host
+
+echo REPLACE VALUES
+sed -i \
+    -e 's@^core_root=.*$@core_root='$dir'/core@' \
+    -e 's@^api_root=.*$@api_root='$dir'/api@' \
+    -e 's@^base_host=.*$@base_host='${base_host:=canistro.$host}'@' \
+    -e 's@^cdn1_host=.*$@cdn1_host='${cdn1_host:=cdn1.$host}'@' \
+    -e 's@^cdn2_host=.*$@cdn2_host='${cdn2_host:=cdn2.$host}'@' \
+    -e 's@^cdn3_host=.*$@cdn3_host='${cdn3_host:=cdn3.$host}'@' \
+    -e 's@^cdn4_host=.*$@cdn4_host='${cdn4_host:=cdn4.$host}'@' etc/app.dev.ini
+
+ln -sf app.dev.ini etc/app.ini
+ln -sf ../app/lib .
+
+echo MAKE APP
+./bin/make
+
+cd $dir
+
+
+echo "
+============================
+THE INSTALLATION IS COMPLETE
+============================
+
+Now setup the virtual host under apache as follows
+
+# CDN VIRTUALHOST
+<VirtualHost *:80>
+    DocumentRoot \"$dir/canistro/pub/cache\"
+    ServerName $cdn1_host
+    ServerAlias $cdn2_host
+    ServerAlias $cdn3_host
+    ServerAlias $cdn4_host
+    ErrorLog \"logs/cdn-error_log\"
+    CustomLog \"logs/cdn-access_log\" common
+
+    <Directory \"$dir/canistro/pub/cache\">
+        Options Indexes FollowSymLinks
+        AllowOverride None
+        Order allow,deny
+        Allow from all
+
+        RewriteEngine On
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteRule ^(.*)$ http://$base_host/img/\$1 [L,P]
+    </Directory>
+</VirtualHost>
+
+# MICRO SHOP VIRTUALHOST
+<VirtualHost *:80>
+    DocumentRoot \"$dir/canistro/pub\"
+    ServerName $base_host
+    ErrorLog \"logs/canistro-error_log\"
+    CustomLog \"logs/canistro-access_log\" common
+
+    <directory \"$dir/canistro/pub\">
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Order Allow,Deny
+        Allow from all
+    </directory>
+</VirtualHost>
+
+============================
+THE INSTALLATION IS COMPLETE
+============================
+"

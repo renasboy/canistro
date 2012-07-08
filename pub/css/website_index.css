@@ -1,0 +1,18 @@
+/* SOCIAL */
+.social .fb-like iframe{
+    width: 48px !important;
+}
+
+.social > * {
+    vertical-align: top;
+    margin-right: 5px;
+}
+
+/* FORK ME ON GITHUB */
+.github {
+    z-index: 10000;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 0;
+}

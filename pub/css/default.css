@@ -4,8 +4,11 @@ body {
 
 /* Landscape phones and down */
 @media (max-width: 480px) {
+    .hero-unit {
+        padding: 20px;
+    }
     .hero-unit h1 {
-        font-size: 20px;
+        font-size: 30px;
     }
     .hero-unit h2 {
         font-size: 18px;

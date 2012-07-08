@@ -2,8 +2,19 @@ canistro
 ========
 
 This is the README file.<br/>
-For installation see [doc/INSTALL](canistro/blob/master/doc/INSTALL).<br/>
 
-Canistro is a professional open source micro personal e-commerce.<br/>
+Canistro is a professional open source personal e-commerce.<br/>
 
-To try canistro for free go to [canistro.linuxforme.com](http://canistro.linuxforme.com)
+Try canistro for free on [canistro.linuxforme.com](http://canistro.linuxforme.com)<br/>
+
+To install canistro run:<br/>
+
+<pre>
+<code>
+$ bash <(wget -q -O - https://raw.github.com/renasboy/canistro/master/bin/install) DIRECTORY_TO_INSTALL
+</code>
+</pre>
+
+Where DIRECTORY_TO_INSTALL is the location where the application will be installed.<br/>
+
+For full installation see [doc/INSTALL](canistro/blob/master/doc/INSTALL).<br/>
