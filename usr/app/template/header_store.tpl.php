@@ -12,7 +12,7 @@
 
                 <ul class="nav pull-right">
                     <li class="divider-vertical"></li>
-                    <li><a>&euro;40.00</a></li>
+                    <li class="cart-total"><a>&euro;40.00</a></li>
                     <li class="divider-vertical"></li>
                     <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-shopping-cart icon-white"></i> My Cart<b class="caret"></b></a>
                         <div class="dropdown-menu span4">
@@ -46,7 +46,7 @@
                                         <td>&nbsp;</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="4"><a class="btn-success btn-large btn pull-right">CHECKOUT</a></td>
+                                        <td colspan="4"><a class="btn-success btn-large btn pull-right" href="/renasboy/checkout">CHECKOUT</a></td>
                                     </tr>
                                 </tbody>
                             </table>
