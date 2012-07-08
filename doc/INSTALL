@@ -1,0 +1,9 @@
+This is the INSTALL file.
+
+Canistro is still in development phase, so for now only templates are avaiable.
+
+Templates are using twitter bootstrap and jquery.
+
+* Quickstart:
+
+git clone https://github.com/renasboy/canistro
