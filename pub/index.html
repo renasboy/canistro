@@ -18,10 +18,36 @@
 .social .fb-like iframe{
     width: 48px !important;
 }
-
 .social > * {
     vertical-align: top;
     margin-right: 5px;
+}
+/* Landscape phones and down */
+@media (max-width: 480px) {
+    .hero-unit {
+        padding: 20px;
+    }
+    .hero-unit h1 {
+        font-size: 30px;
+    }
+    .hero-unit h2 {
+        font-size: 18px;
+    }
+    .hero-unit p {
+        font-size: 15px;
+    }
+}
+ 
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+}
+ 
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+}
+ 
+/* Large desktop */
+@media (min-width: 1200px) {
 }
 </style>
 
@@ -239,7 +265,7 @@ $(function () {
                 </div>
             </div>
 
-            <div class="span3">
+            <div class="span3 visible-desktop">
                 <h2>Highlight canistro</h2>
                 <p>This is the highlight canistro of the month.</p>
                 <ul class="thumbnails">
