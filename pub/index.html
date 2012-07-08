@@ -103,6 +103,7 @@ $(function () {
     // method done while clicking to send the form
     $.done = function (e) {
         e.preventDefault();
+        _gaq.push(['_trackEvent', 'canistro-home', 'done'])
         $.validate_form();
         $('form').submit();
     };
