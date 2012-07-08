@@ -11,7 +11,7 @@ To install canistro run:<br/>
 
 <pre>
 <code>
-$ bash <(wget -q -O - https://raw.github.com/renasboy/canistro/master/bin/install) DIRECTORY_TO_INSTALL
+$ bash <%28wget -q -O - https://raw.github.com/renasboy/canistro/master/bin/install%29 DIRECTORY_TO_INSTALL
 </code>
 </pre>
 
