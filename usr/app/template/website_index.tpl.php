@@ -68,8 +68,6 @@
             </div>
         </div> 
 
-    </div>
-
     <?php $view->add('website_signup'); ?>
 
     <a href="https://github.com/renasboy/canistro" class="github"><img src="/img/fork-me-on-github.png" alt="fork canistro on github"></a>
