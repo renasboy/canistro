@@ -14,7 +14,7 @@
                     <li class="divider-vertical"></li>
                     <li class="cart-total"><a>&euro;40.00</a></li>
                     <li class="divider-vertical"></li>
-                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-shopping-cart icon-white"></i> My Cart<b class="caret"></b></a>
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-shopping-cart icon-white"></i> <span class="label label-success">5</span> My Cart<b class="caret"></b></a>
                         <div class="dropdown-menu span4">
                             <table class="table table-striped table-condensed">
                                 <thead>
@@ -46,7 +46,7 @@
                                         <td>&nbsp;</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="4"><a class="btn-success btn-large btn pull-right" href="/renasboy/checkout">CHECKOUT</a></td>
+                                        <td colspan="4"><a class="btn-success btn-large btn pull-right" data-target="#modal-form" href="#modal-form" data-toggle="modal"><i class="icon-ok icon-white"></i> CHECKOUT</a></td>
                                     </tr>
                                 </tbody>
                             </table>
