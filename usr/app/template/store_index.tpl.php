@@ -4,32 +4,18 @@
                 <div id="product-carousel" class="carousel slide">
                     <!-- Carousel items -->
                     <div class="carousel-inner">
-                        <div class="active item">
-                            <img alt="" src="http://placehold.it/1920x1080">
+                        <?php foreach ($store->products as $key => $product) { ?>
+                        <div class="<?php print $key == 0 ? 'active ' : null; ?>item" data-id="<?php print $product->id; ?>" data-slide="<?php print $key; ?>">
+                            <?php print str_replace('height="1080"', null, $helper->image($product->img, $product->name, 1920, 1080)); ?>
                             <div class="carousel-caption">
-                                <h4>This is the product #1</h4>
-                                <p><a class="btn btn-primary pull-right add-cart" href="#"><i class="icon-plus icon-white"></i> &euro;40.00</a></p>
-                                <p>this is a description for the product #1, this description can be long. this is a description for the product #1, this description can be long.</p>
+                                <p class="pull-right"><a class="btn btn-large btn-primary add-cart" href="#"><i class="icon-plus icon-white"></i> &euro;<?php print $product->price; ?></a></p>
+                                <h4><?php print $product->name; ?></h4>
+                                <?php if (!empty($product->description)) { ?>
+                                <p class="visible-desktop"><?php print $product->description; ?></p>
+                                <?php } ?>
                             </div>
                         </div>
-
-                        <div class="item">
-                            <img alt="" src="http://placehold.it/1920x1080">
-                            <div class="carousel-caption">
-                                <h4>This is the product #2</h4>
-                                <p><a class="btn btn-primary pull-right add-cart" href="#"><i class="icon-plus icon-white"></i> &euro;15.00</a></p>
-                                <p>this is a description for the product #2, this description can be long. this is a description for the product #2, this description can be long.</p>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <img alt="" src="http://placehold.it/1920x1080">
-                            <div class="carousel-caption">
-                                <h4>This is the product #3</h4>
-                                <p><a class="btn btn-primary pull-right add-cart" href="#"><i class="icon-plus icon-white"></i> &euro;20.00</a></p>
-                                <p>this is a description for the product #3, this description can be long. this is a description for the product #3, this description can be long.</p>
-                            </div>
-                        </div>
+                        <?php } ?>
                     </div>
                     <!-- Carousel nav -->
                     <a class="carousel-control left" href="#product-carousel" data-slide="prev">&lsaquo;</a>
@@ -43,21 +29,23 @@
             </div>
 
             <div class="span3">
+                <div class="thumbnails-wrapper">
                 <ul class="thumbnails">
-                    <?php foreach ([0,1,2] as $i) { ?>
+                    <?php foreach ($store->products as $key => $product) { ?>
                     <li class="span3">
                     <div class="thumbnail carousel">
                         <div class="carousel-inner">
-                        <a href="#"><img alt="" src="http://placehold.it/260x146"></a>
+                        <a data-id="<?php print $product->id; ?>" href="#" data-slide="<?php print $key; ?>"><?php print str_replace('height="146"', null, $helper->image($product->img, $product->name, 260, 146)); ?></a>
                         <div class="carousel-caption">
-                            <a class="btn btn-primary pull-right add-cart" href="#"><i class="icon-plus icon-white"></i> &euro;40.00</a>
-                            <h4>product #1</h4>
+                            <a class="btn btn-mini btn-primary pull-right add-cart" href="#"><i class="icon-plus icon-white"></i> &euro;<?php print $product->price; ?></a>
+                            <h5 class="visible-desktop"><?php print $product->name; ?></h5>
                         </div>
                         </div>
                     </div>
                     </li>
                     <?php } ?>
                 </ul>
+                </div>
             </div>
 
         </div>

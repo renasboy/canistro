@@ -72,7 +72,8 @@ $(function () {
 
     var interval_cart = null;
     var wait_cart = false;
-    $.add_cart = function () {
+    $.add_cart = function (e) {
+        e.preventDefault();
         if (wait_cart) {
             return false;
         }
@@ -88,7 +89,8 @@ $(function () {
 
         wait_cart = false;
     };
-    $.remove_cart = function () {
+    $.remove_cart = function (e) {
+        e.preventDefault();
         if (wait_cart) {
             return false;
         }
@@ -120,9 +122,37 @@ $(function () {
         sound_cart.play();
     };
 
-    $(document).off('click', '#done').on('click', '#done', $.done);
-    $(document).off('submit', 'form').on('submit', 'form', $.submit);
-    $(document).off('click', '.btn-success').on('click', '.btn-success', $.track);
-    $(document).off('click', '.add-cart').on('click', '.add-cart', $.add_cart);
-    $(document).off('click', '.icon-trash').on('click', '.icon-trash', $.remove_cart);
+    // animate slider based on thumbs
+    $.change_carousel = function (e) {
+        e.preventDefault();
+        var slide = $(this).data('slide');
+        $('#product-carousel').carousel(slide);
+    };
+
+    // animate thumbs based on slider
+    $.change_thumbs = function (e) {
+        var slide = $('#product-carousel .active').data('slide');
+        var top = $('.carousel-inner > a').eq(slide).offset().top + $('.thumbnails-wrapper').scrollTop() - ($('.thumbnails-wrapper').height() / 2)
+        $('.thumbnails-wrapper').animate({'scrollTop': top});
+    }
+
+    $.build = function () {
+        // resize wrapper
+        $('.thumbnails-wrapper').css({'height': $('#product-carousel').height(), 'width': $('.thumbnails-wrapper').width() + 20, 'overflow':'auto' });
+        // apply margin to first and last thumbs
+        var margin = ($('.thumbnails-wrapper').height() - $('.thumbnails .span3').eq(0).outerHeight(true)) / 2;
+        $('.thumbnails .span3:first').css({'margin-top': margin});
+        $('.thumbnails .span3:last').css({'margin-bottom': margin});
+
+        $(document).off('slid', '#product-carousel').on('slid', '#product-carousel', $.change_thumbs);
+        $(document).off('click', '.carousel-inner > a').on('click', '.carousel-inner > a', $.change_carousel);
+        $(document).off('click', '#done').on('click', '#done', $.done);
+        $(document).off('submit', 'form').on('submit', 'form', $.submit);
+        $(document).off('click', '.btn-success').on('click', '.btn-success', $.track);
+        $(document).off('click', '.add-cart').on('click', '.add-cart', $.add_cart);
+        $(document).off('click', '.icon-trash').on('click', '.icon-trash', $.remove_cart);
+    };
+
+
+    $.build();
 });

@@ -1,13 +1,13 @@
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container">
-                <a class="brand" href="/renasboy">renasboy</a>
+                <a class="brand" href="/<?php print $store_name; ?>"><?php print $store_name; ?></a>
 
                 <ul class="nav">
-                    <li class="home visible-desktop"><a href="/renasboy">Home</a></li>
-                    <li class="about"><a href="/renasboy/about">About</a></li>
-                    <li class="info"><a href="/renasboy/payment-and-delivery">Payment &amp; delivery</a></li>
-                    <li class="contact"><a href="/renasboy/contact">Contact</a></li>
+                    <li class="home visible-desktop"><a href="/<?php print $store_name; ?>">Home</a></li>
+                    <li class="about"><a href="/<?php print $store_name; ?>/about">About</a></li>
+                    <li class="info"><a href="/<?php print $store_name; ?>/payment-and-delivery">Payment &amp; delivery</a></li>
+                    <li class="contact"><a href="/<?php print $store_name; ?>/contact">Contact</a></li>
                 </ul>
 
                 <ul class="nav pull-right">

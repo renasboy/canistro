@@ -2,8 +2,13 @@
 
             <div class="span12">
                 <div class="hero-unit">
-                    <h1>About renasboy</h1>
-                    <p>This is the about description for the renasboy canistro. This is the about description for the renasboy canistro. This is the about description for the renasboy canistro.</p>
+                    <?php
+                    print $helper->title(sprintf('About %s', $store->name));
+                    if (empty($store->about)) {
+                        $store->about = sprintf('No about information for %s was added.', $store->name);
+                    }
+                    print $helper->description($store->about);
+                    ?>
                 </div>
             </div>
 

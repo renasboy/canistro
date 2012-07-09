@@ -2,8 +2,13 @@
 
             <div class="span12">
                 <div class="hero-unit">
-                    <h1>Payment &amp; delivery renasboy</h1>
-                    <p>This is how you can pay and receive you delivery for the renasboy canistro. This is the about description for the renasboy canistro. This is the about description for the renasboy canistro.</p>
+                    <?php
+                    print $helper->title(sprintf('Payment &amp; delivery by %s', $store->name));
+                    if (empty($store->info)) {
+                        $store->info = sprintf('No payment and delivery information for %s was added.', $store->name);
+                    }
+                    print $helper->description($store->info);
+                    ?>
                 </div>
             </div>
 
