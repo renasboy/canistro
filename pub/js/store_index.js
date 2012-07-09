@@ -70,6 +70,7 @@ $(function () {
         _gaq.push(['_trackEvent', 'canistro-store', 'checkout'])
     };
 
+    var interval_cart = null;
     var wait_cart = false;
     $.add_cart = function () {
         if (wait_cart) {
@@ -80,9 +81,8 @@ $(function () {
         //    if (data == 'success') {
                 var qty = parseInt($('.label-success').html());
                 $('.label-success').html(qty + 1);
-
-                var price = parseFloat($('.cart-total a').html().replace('€', '')) + 10;
-                $('.cart-total a').html('&euro;' + price.toFixed(2))
+                $.price = parseFloat($('.cart-total a').html().replace('€', '')) + 10;
+                interval_cart = setInterval("$.update_cart_total($.price)", 100);
         //    }
         //});
 
@@ -97,9 +97,27 @@ $(function () {
         //    if (data == 'success') {
                 var qty = parseInt($('.label-success').html());
                 $('.label-success').html(qty - 1);
+                $.price = parseFloat($('.cart-total a').html().replace('€', '')) - 10;
+                interval_cart = setInterval("$.update_cart_total($.price)", 100);
         //    }
         //});
         wait_cart = false;
+    };
+    $.update_cart_total = function (total) {
+        var price = parseFloat($('.cart-total a').html().replace('€', ''));
+        if (price > total) {
+            price--;
+        }
+        else if (total > price) {
+            price++;
+        }
+        else { 
+            clearInterval(interval_cart);
+            return false;
+        }
+        $('.cart-total a').html('&euro;' + price.toFixed(2))
+        var sound_cart = new Audio('/snd/coin.wav');
+        sound_cart.play();
     };
 
     $(document).off('click', '#done').on('click', '#done', $.done);
