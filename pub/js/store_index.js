@@ -66,7 +66,9 @@ $(function () {
         //});
     };
 
+    var sound_modal = new Audio('/snd/powerup.wav');
     $.track = function () {
+        sound_modal.play();
         _gaq.push(['_trackEvent', 'canistro-store', 'checkout'])
     };
 
@@ -80,10 +82,14 @@ $(function () {
         wait_cart = true;
         //$.post('/renasboy/cart/add/id', $('form').serializeArray(), function (data) {
         //    if (data == 'success') {
-                var qty = parseInt($('.label-success').html());
-                $('.label-success').html(qty + 1);
+                var sound_cart = new Audio('/snd/coin.wav');
+                $('.label-success').addClass('label-warning').removeClass('label-success');
+                var qty = parseInt($('.label-warning').html());
+                $('.label-warning').html(qty + 1);
+                $('.cart-total').addClass('active');
                 $.price = parseFloat($('.cart-total a').html().replace('€', '')) + 10;
                 interval_cart = setInterval("$.update_cart_total($.price)", 100);
+                sound_cart.play();
         //    }
         //});
 
@@ -97,10 +103,14 @@ $(function () {
         wait_cart = true;
         //$.post('/renasboy/cart/del/id', $('form').serializeArray(), function (data) {
         //    if (data == 'success') {
-                var qty = parseInt($('.label-success').html());
-                $('.label-success').html(qty - 1);
+                var sound_cart = new Audio('/snd/coin.wav');
+                $('.label-success').addClass('label-warning').removeClass('label-success');
+                var qty = parseInt($('.label-warning').html());
+                $('.label-warning').html(qty - 1);
+                $('.cart-total').addClass('active');
                 $.price = parseFloat($('.cart-total a').html().replace('€', '')) - 10;
                 interval_cart = setInterval("$.update_cart_total($.price)", 100);
+                sound_cart.play();
         //    }
         //});
         wait_cart = false;
@@ -115,11 +125,11 @@ $(function () {
         }
         else { 
             clearInterval(interval_cart);
+            $('.label-warning').removeClass('label-warning').addClass('label-success');
+            $('.cart-total').removeClass('active');
             return false;
         }
         $('.cart-total a').html('&euro;' + price.toFixed(2))
-        var sound_cart = new Audio('/snd/coin.wav');
-        sound_cart.play();
     };
 
     // animate slider based on thumbs

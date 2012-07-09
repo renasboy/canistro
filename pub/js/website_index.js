@@ -105,9 +105,12 @@ $(function () {
         //});
     };
 
+    var sound_modal = new Audio('/snd/powerup.wav');
     $.track = function () {
+        sound_modal.play();
         _gaq.push(['_trackEvent', 'canistro-home', 'try free'])
     };
+
 
     $(document).off('click', '#done').on('click', '#done', $.done);
     $(document).off('submit', 'form').on('submit', 'form', $.submit);
