@@ -1,31 +1,33 @@
 $(function () {
 
-    // set jquery validator default values
-    $.validator.setDefaults({
-        highlight: function(element, errorClass, validClass) {
-            validClass = 'success';
-            $(element).parents('.control-group').addClass(errorClass).removeClass(validClass);
-        },
-        unhighlight: function(element, errorClass, validClass) {
-            validClass = 'success';
-            $(element).parents('.control-group').removeClass(errorClass).addClass(validClass);
-        },
-        errorPlacement: function (error, element) {
-            element.parents('.control-group').find('.help-block').html(error);
-        },
-        success: function (label) {
-            $('#' + label.attr('for')).parents('.control-group').find('.help-block').html('This field is verified');
-        },
-        errorElement: 'span'
-    });
-
-    // add jquery validator regexp method for precise matching
-    $.validator.addMethod('regexp', function(value, element, param) {
-        return this.optional(element) || value.match(param);
-    }, 'This value doesn\'t match the acceptable pattern.');
-
     // simple method validate form, to config jquery validator
     $.validate_form = function () {
+
+        // set jquery validator default values
+        $.validator.setDefaults({
+            highlight: function(element, errorClass, validClass) {
+                validClass = 'success';
+                $(element).parents('.control-group').addClass(errorClass).removeClass(validClass);
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                validClass = 'success';
+                $(element).parents('.control-group').removeClass(errorClass).addClass(validClass);
+            },
+            errorPlacement: function (error, element) {
+                element.parents('.control-group').find('.help-block').html(error);
+            },
+            success: function (label) {
+                $('#' + label.attr('for')).parents('.control-group').find('.help-block').html('This field is verified');
+            },
+            errorElement: 'span'
+        });
+
+        // add jquery validator regexp method for precise matching
+        $.validator.addMethod('regexp', function(value, element, param) {
+            return this.optional(element) || value.match(param);
+        }, 'This value doesn\'t match the acceptable pattern.');
+
+
         $('form').validate({
             rules: {
                 email: {
@@ -76,11 +78,19 @@ $(function () {
         });
     };
 
+    $.validate_form();
+
+
+    var sound_incorrect = new Audio('/snd/incorrect.wav');
     // method done while clicking to send the form
     $.done = function (e) {
         e.preventDefault();
         _gaq.push(['_trackEvent', 'canistro-home', 'done'])
-        $.validate_form();
+        $('form').validate();
+        if (!$('form').valid()) {
+            sound_incorrect.play();
+            return false;
+        }
         $('form').submit();
     };
 
@@ -93,12 +103,14 @@ $(function () {
         $('.alert-success').removeClass('in').addClass('out, hide');
     };
 
+    var sound_message = new Audio('/snd/message.wav');
     // submit the form after successful validation
     $.submit = function (e) {
         e.preventDefault();
         //$.post('/create', $('form').serializeArray(), function (data) {
         //    if (data == 'success') {
                 $('.alert-success').removeClass('out, hide').addClass('in').alert();
+                sound_message.play();
                 // TODO reset here or after closing alert and form?
                 setTimeout(function () {$.reset_form();}, 5000);
         //    }
