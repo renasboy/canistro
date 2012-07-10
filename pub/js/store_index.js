@@ -142,18 +142,27 @@ $(function () {
     // animate thumbs based on slider
     $.change_thumbs = function (e) {
         var slide = $('#product-carousel .active').data('slide');
-        var top = $('.carousel-inner > a').eq(slide).offset().top + $('.thumbnails-wrapper').scrollTop() - ($('.thumbnails-wrapper').height() / 2)
+        $('.thumbnail').removeClass('selected');
+        $('.thumbnail').eq(slide).addClass('selected');
+        var top = $('.thumbnail .carousel-inner > a').eq(slide).offset().top + $('.thumbnails-wrapper').scrollTop() - ($('.thumbnails-wrapper').height() / 2)
         $('.thumbnails-wrapper').animate({'scrollTop': top});
     }
 
-    $.build = function () {
+    $.expand_nav = function () {
+        //setTimeout(, 1000);
         // resize wrapper
-        $('.thumbnails-wrapper').css({'height': $('#product-carousel').height(), 'width': $('.thumbnails-wrapper').width() + 20, 'overflow':'auto' });
-        // apply margin to first and last thumbs
-        var margin = ($('.thumbnails-wrapper').height() - $('.thumbnails .span3').eq(0).outerHeight(true)) / 2;
-        $('.thumbnails .span3:first').css({'margin-top': margin});
-        $('.thumbnails .span3:last').css({'margin-bottom': margin});
+        $('.thumbnails-wrapper').css({'width': $('.thumbnails-wrapper').width() + 20});
+        $('.thumbnails-wrapper').animate({'height': $('#product-carousel').height()}, 1000, function () {
+            // apply margin to first and last thumbs
+            var margin = ($('.thumbnails-wrapper').height() - $('.thumbnails .span3').eq(0).outerHeight(true)) / 2;
+            $('.thumbnails .span3:first').css({'margin-top': margin});
+            $('.thumbnails .span3:last').css({'margin-bottom': margin});
+            var top = $('.thumbnail .carousel-inner > a').eq(1).offset().top + $('.thumbnails-wrapper').scrollTop() - ($('.thumbnails-wrapper').height() / 2)
+            $('.thumbnails-wrapper').animate({'scrollTop': top});
+        });
+    };
 
+    $.build = function () {
         $(document).off('slid', '#product-carousel').on('slid', '#product-carousel', $.change_thumbs);
         $(document).off('click', '.carousel-inner > a').on('click', '.carousel-inner > a', $.change_carousel);
         $(document).off('click', '#done').on('click', '#done', $.done);
@@ -161,6 +170,7 @@ $(function () {
         $(document).off('click', '.btn-success').on('click', '.btn-success', $.track);
         $(document).off('click', '.add-cart').on('click', '.add-cart', $.add_cart);
         $(document).off('click', '.icon-trash').on('click', '.icon-trash', $.remove_cart);
+        $.expand_nav();
     };
 
 

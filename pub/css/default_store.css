@@ -10,12 +10,25 @@ body {
     margin-bottom: 0;
 }
 
+.thumbnails-wrapper {
+    overflow: hidden;
+    height: 0px;
+}
+
+.thumbnails-wrapper:hover {
+    overflow-y: auto;
+}
+
 .thumbnails .carousel-caption h5 {
     color: #FFFFFF;
 }
 
 .thumbnails .carousel-caption {
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0.25);
+}
+
+.thumbnail.selected {
+    border-color: #0088cc;
 }
 
 /* Landscape phones and down */

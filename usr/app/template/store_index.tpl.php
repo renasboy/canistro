@@ -33,7 +33,7 @@
                 <ul class="thumbnails">
                     <?php foreach ($store->products as $key => $product) { ?>
                     <li class="span3">
-                    <div class="thumbnail carousel">
+                    <div class=" <?php print $key == 0 ? 'selected ' : null; ?>thumbnail carousel">
                         <div class="carousel-inner">
                         <a data-id="<?php print $product->id; ?>" href="#" data-slide="<?php print $key; ?>"><?php print str_replace('height="146"', null, $helper->image($product->img, $product->name, 260, 146)); ?></a>
                         <div class="carousel-caption">
