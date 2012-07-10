@@ -82,64 +82,98 @@ $(function () {
         _gaq.push(['_trackEvent', 'canistro-store', 'checkout'])
     };
 
-    var interval_cart = null;
-    var wait_cart = false;
+    var interval_cart   = null;
+    var wait_cart       = false;
+    var sound_cart      = new Audio('/snd/coin.wav');
+    $.update_cart = function (action, id) {
+        if (wait_cart) {
+            return false;
+        }
+        wait_cart = true;
+        $('.label-success').addClass('label-warning').removeClass('label-success');
+        $('.cart-total').addClass('active');
+        // TODO add error handling for http call
+        $.post('/renasboy/cart/' + action, {'id': id}, function (data) {
+            if (data) {
+                var total = data.total;
+                var qty = data.quantity;
+                if (id) {
+                    sound_cart.play();
+                }
+
+                if (data.products) {
+                    // TODO check on using jquery-templ , but I did not like it last time
+                    // well check on doing something better
+                    var html = '<table class="table table-striped table-condensed">';
+                    html += '<thead>';
+                    html += '<tr>';
+                    html += '<th>#</th>';
+                    html += '<th>product name</th>';
+                    html += '<th>price</th>';
+                    html += '<th>&nbsp;</th>';
+                    html += '</tr>';
+                    html += '</thead>';
+                    html += '<tbody>';
+
+                    for (key in data.products) {
+                        product = data.products[key];
+                        html += '<tr>';
+                        html += '<td>' + product.quantity +'</td>';
+                        html += '<td><a href="">' + product.name + '</a></td>';
+                        html += '<td>&euro;' + product.price + '</td>';
+                        html += '<td><a href="#"><i class="icon-trash" data-product="' + product.id + '"></i></a></td>';
+                        html += '</tr>';
+                    }
+
+                    html += '<tr>';
+                    html += '<td>&nbsp;</td>';
+                    html += '<td>TOTAL</td>';
+                    html += '<td>&euro;' + data.total + '</td>';
+                    html += '<td>&nbsp;</td>';
+                    html += '</tr>';
+
+                    html += '<tr>';
+                    html += '<td colspan="4"><a class="btn-success btn-large btn pull-right" data-target="#modal-form" href="#modal-form" data-toggle="modal"><i class="icon-ok icon-white"></i> CHECKOUT</a></td>';
+                    html += '</tr>';
+
+                    html += '</tbody>';
+                    html += '</table>';
+                }
+            }
+            else {
+                var total   = '0.00';
+                var qty     = 0;
+                var html    = '<h3>I am empty!</h3>';
+
+            }
+            setTimeout("$.turn_off_cart();", 500);
+            $('.cart-total a').html('&euro;' + total)
+            $('.label-warning, .label-success').html(parseInt(qty));
+            $('.dropdown-menu').html(html);
+            if (qty == 0) {
+                $.old_checkout_height = $('.checkout').height();
+                $('.checkout').animate({'height': 0});
+            }
+            else {
+                $('.checkout').animate({'height': $.old_checkout_height });
+            }
+        });
+        wait_cart = false;
+    };
+
+    $.turn_off_cart = function () {
+        $('.label-warning').removeClass('label-warning').addClass('label-success');
+        $('.cart-total').removeClass('active');
+    };
+
     $.add_cart = function (e) {
         e.preventDefault();
-        if (wait_cart) {
-            return false;
-        }
-        wait_cart = true;
-        //$.post('/renasboy/cart/add/id', $('form').serializeArray(), function (data) {
-        //    if (data == 'success') {
-                var sound_cart = new Audio('/snd/coin.wav');
-                $('.label-success').addClass('label-warning').removeClass('label-success');
-                var qty = parseInt($('.label-warning').html());
-                $('.label-warning').html(qty + 1);
-                $('.cart-total').addClass('active');
-                $.price = parseFloat($('.cart-total a').html().replace('€', '')) + 10;
-                interval_cart = setInterval("$.update_cart_total($.price)", 100);
-                sound_cart.play();
-        //    }
-        //});
-
-        wait_cart = false;
+        $.update_cart('add', $(this).data('product'));
     };
+
     $.remove_cart = function (e) {
         e.preventDefault();
-        if (wait_cart) {
-            return false;
-        }
-        wait_cart = true;
-        //$.post('/renasboy/cart/del/id', $('form').serializeArray(), function (data) {
-        //    if (data == 'success') {
-                var sound_cart = new Audio('/snd/coin.wav');
-                $('.label-success').addClass('label-warning').removeClass('label-success');
-                var qty = parseInt($('.label-warning').html());
-                $('.label-warning').html(qty - 1);
-                $('.cart-total').addClass('active');
-                $.price = parseFloat($('.cart-total a').html().replace('€', '')) - 10;
-                interval_cart = setInterval("$.update_cart_total($.price)", 100);
-                sound_cart.play();
-        //    }
-        //});
-        wait_cart = false;
-    };
-    $.update_cart_total = function (total) {
-        var price = parseFloat($('.cart-total a').html().replace('€', ''));
-        if (price > total) {
-            price--;
-        }
-        else if (total > price) {
-            price++;
-        }
-        else { 
-            clearInterval(interval_cart);
-            $('.label-warning').removeClass('label-warning').addClass('label-success');
-            $('.cart-total').removeClass('active');
-            return false;
-        }
-        $('.cart-total a').html('&euro;' + price.toFixed(2))
+        $.update_cart('del', $(this).data('product'));
     };
 
     // animate slider based on thumbs
@@ -181,6 +215,7 @@ $(function () {
         $(document).off('click', '.add-cart').on('click', '.add-cart', $.add_cart);
         $(document).off('click', '.icon-trash').on('click', '.icon-trash', $.remove_cart);
         setTimeout($.expand_nav, 1000);
+        $.update_cart('get');
     };
 
     $.build();

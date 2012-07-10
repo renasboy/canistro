@@ -5,6 +5,10 @@ body {
 .dropdown-menu table {
     margin: 10px 0px 0px 0px;
 }
+.dropdown-menu h3 {
+    margin: 10px 0px;
+    text-align: center;
+}
 
 .thumbnails .carousel {
     margin-bottom: 0;
@@ -29,6 +33,10 @@ body {
 
 .thumbnail.selected {
     border-color: #0088cc;
+}
+
+.checkout {
+    overflow: hidden;
 }
 
 /* Landscape phones and down */
