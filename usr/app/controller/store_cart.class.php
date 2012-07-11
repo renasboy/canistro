@@ -15,8 +15,12 @@ class store_cart extends \app\simple_controller {
             $this->_error->bad_request('cart without POST');
         }
 
-        $this->_validator->validate('is_in_list', $this->_input['action'], ['add','del','get']);
         $this->_validator->validate('is_entity', 'store', 'name', $this->_input['name']);
+        if ($this->_validator->error()) {
+            $this->_error->not_found('store: ' . $this->_input['name']);
+        }
+
+        $this->_validator->validate('is_in_list', $this->_input['action'], ['add','del','get']);
         if ($this->_input['action'] != 'get') {
             $this->_validator->validate('is_entity', 'product', 'id', $this->_input['id']);
         }

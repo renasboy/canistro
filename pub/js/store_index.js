@@ -65,15 +65,16 @@ $(function () {
     // submit the form after successful validation
     $.submit = function (e) {
         e.preventDefault();
-        //$.post('/create', $('form').serializeArray(), function (data) {
-        //    if (data == 'success') {
+        $.post('/' + $('.brand').html() + '/checkout', $('form').serializeArray(), function (data) {
+            if (data == 'success') {
                 $('.alert-success').removeClass('out, hide').addClass('in').alert();
                 sound_message.play();
-                
+                // update shopping cart
+                $.update_cart('get'); 
                 // TODO reset here or after closing alert and form?
-                setTimeout(function () {$.reset_form();}, 5000);
-        //    }
-        //});
+                setTimeout(function () {$('#modal-form').modal('hide');}, 5000);
+            }
+        });
     };
 
     var sound_modal = new Audio('/snd/powerup.wav');
@@ -92,14 +93,14 @@ $(function () {
         wait_cart = true;
         $('.label-success').addClass('label-warning').removeClass('label-success');
         $('.cart-total').addClass('active');
+        if (id) {
+            sound_cart.play();
+        }
         // TODO add error handling for http call
         $.post('/renasboy/cart/' + action, {'id': id}, function (data) {
             if (data) {
                 var total = data.total;
                 var qty = data.quantity;
-                if (id) {
-                    sound_cart.play();
-                }
 
                 if (data.products) {
                     // TODO check on using jquery-templ , but I did not like it last time
@@ -214,6 +215,7 @@ $(function () {
         $(document).off('click', '.btn-success').on('click', '.btn-success', $.track);
         $(document).off('click', '.add-cart').on('click', '.add-cart', $.add_cart);
         $(document).off('click', '.icon-trash').on('click', '.icon-trash', $.remove_cart);
+        $(document).off('hidden', '#modal-form').on('hidden', '#modal-form', $.reset_form);
         setTimeout($.expand_nav, 1000);
         $.update_cart('get');
     };

@@ -21,16 +21,16 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="address">your delivery address</label>
+                        <label class="control-label" for="address">contact details</label>
                         <div class="controls">
-                            <textarea type="text" name="address" id="address" class="span3" placeholder="Street - City - Country - Postalcode"></textarea>
-                            <p class="help-block">enter your address for delivery here</p>
+                            <textarea type="text" name="address" id="address" class="span3" placeholder="I would like to be contacted via email."></textarea>
+                            <p class="help-block">enter your prefered contacts method and details</p>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="comments">comments or remarks</label>
                         <div class="controls">
-                            <textarea type="text" name="comments" id="comments" class="span3" placeholder="Enter your comment or remark here..."></textarea>
+                            <textarea type="text" name="comments" id="comments" class="span3" placeholder="I am highly interested in the selected products, please contact me to close the deal."></textarea>
                             <p class="help-block">enter your comments here</p>
                         </div>
                     </div>

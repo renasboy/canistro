@@ -15,7 +15,7 @@ class error_message extends \app\view {
         // TODO if 404 try to resolve it getting some content
         switch ($this->get('code')) {
             case 400:
-                $this->set('title', 'Request is no proper');
+                $this->set('title', 'Request is not proper');
                 $this->set('description', 'The request you are placing is not correct, please verify the source of the request otherwise try our homepage.');
             break;
 
