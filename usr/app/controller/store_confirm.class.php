@@ -27,7 +27,7 @@ class store_confirm extends \app\simple_controller {
         $this->_validator->validate('is_text', $this->_input['token']);
 
         if ($this->_validator->error()) {
-            $this->_error->bad_request('confirm: ' . $this->_validator->error());
+            $this->_error->bad_request('store confirm: ' . $this->_validator->error());
         }
     }
 
@@ -36,10 +36,10 @@ class store_confirm extends \app\simple_controller {
         
         $shop = $this->_api_client->get('/shop/' . $this->_input['id'], [])[0];
 
-        $token = md5(crypt(sprintf('%s|%s|%s|%d', $shop->email, $this->_input['name'], $shop->id, intval($shop->total)), 'CO'));
+        $token = md5(crypt(sprintf('%s|%s|%d|%d', $shop->email, $this->_input['name'], $shop->id, intval($shop->total)), 'CO'));
 
         if ($token != $this->_input['token']) {
-            $this->_error->bad_request('checkout: ' . $this->_validator->error());
+            $this->_error->bad_request('store token: ' . $this->_validator->error());
         }
         
         $result = $this->_api_client->save('/shop/' . $shop->id, ['status' => 'ordered']);

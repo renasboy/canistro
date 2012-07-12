@@ -33,7 +33,6 @@ $(function () {
                 email: {
                     required: true,
                     email: true,
-                    /*
                     remote: {
                         url: '/validation/email',
                         data: {
@@ -42,14 +41,12 @@ $(function () {
                             }
                         }
                     }
-                    */
                 },
                 name: {
                     required: true,
                     minlength: 5,
                     maxlength: 30,
                     regexp: /^([A-Za-z0-9_-]{5,30})$/,
-                    /*
                     remote: {
                         url: '/validation/name',
                         data: {
@@ -58,7 +55,6 @@ $(function () {
                             }
                         }
                     }
-                    */
                 }
             },
             messages: {
@@ -107,14 +103,14 @@ $(function () {
     // submit the form after successful validation
     $.submit = function (e) {
         e.preventDefault();
-        //$.post('/create', $('form').serializeArray(), function (data) {
-        //    if (data == 'success') {
+        $.post('/', $('form').serializeArray(), function (data) {
+            if (data == 'success') {
                 $('.alert-success').removeClass('out, hide').addClass('in').alert();
                 sound_message.play();
-                // TODO reset here or after closing alert and form?
-                setTimeout(function () {$.reset_form();}, 5000);
-        //    }
-        //});
+                setTimeout(function () {$('#modal-form').modal('hide');}, 5000);
+                _gaq.push(['_trackEvent', 'canistro-home', 'success'])
+            }
+        });
     };
 
     var sound_modal = new Audio('/snd/powerup.wav');
@@ -123,8 +119,12 @@ $(function () {
         _gaq.push(['_trackEvent', 'canistro-home', 'try free'])
     };
 
+    $.build = function () {
+        $(document).off('click', '#done').on('click', '#done', $.done);
+        $(document).off('submit', 'form').on('submit', 'form', $.submit);
+        $(document).off('click', '.btn-success').on('click', '.btn-success', $.track);
+        $(document).off('hidden', '#modal-form').on('hidden', '#modal-form', $.reset_form);
+    };
 
-    $(document).off('click', '#done').on('click', '#done', $.done);
-    $(document).off('submit', 'form').on('submit', 'form', $.submit);
-    $(document).off('click', '.btn-success').on('click', '.btn-success', $.track);
+    $.build();
 });

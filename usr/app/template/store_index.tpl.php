@@ -1,5 +1,16 @@
         <div class="row">
 
+            <?php if (empty($store->products)) { ?>
+
+            <div class="span12">
+                <div class="hero-unit">
+                    <h1>This is the <?php print $store_name; ?> store</h1>
+                    <p>There are no current products in the store, and this means they are probably being prepared right now, so please come back later.</p>
+                </div>
+            </div>
+
+            <?php } else { ?> 
+
             <div class="span9">
                 <div id="product-carousel" class="carousel slide">
                     <!-- Carousel items -->
@@ -47,6 +58,8 @@
                 </ul>
                 </div>
             </div>
+
+            <?php } ?>
 
         </div>
 

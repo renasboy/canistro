@@ -38,7 +38,7 @@ $(function () {
     $.validate_form();
 
     var sound_incorrect = new Audio('/snd/incorrect.wav');
-    // method done while clicking to send the form
+    // method while clicking on send the form
     $.done = function (e) {
         e.preventDefault();
         _gaq.push(['_trackEvent', 'canistro-store', 'done'])
@@ -71,8 +71,8 @@ $(function () {
                 sound_message.play();
                 // update shopping cart
                 $.update_cart('get'); 
-                // TODO reset here or after closing alert and form?
                 setTimeout(function () {$('#modal-form').modal('hide');}, 5000);
+                _gaq.push(['_trackEvent', 'canistro-store', 'success'])
             }
         });
     };

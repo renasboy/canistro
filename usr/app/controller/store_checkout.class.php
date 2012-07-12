@@ -101,13 +101,13 @@ class store_checkout extends \app\simple_controller {
             $products[]         = $product;
         }
 
-        // SUCCESS, compose the mail for confirmation and redirect
+        // SUCCESS, compose the mail for confirmation and die successfully :-)
         $this->_view->set('email',      $this->_input['email']);
         $this->_view->set('name',       $this->_input['name']);
         $this->_view->set('products',   $products);
         $this->_view->set('shop_id',    $shop_id);
         $this->_view->set('total',      number_format($total));
-        $this->_view->set('token',      md5(crypt(sprintf('%s|%s|%s|%d', $this->_input['email'], $this->_input['name'], $shop_id, intval($total)), 'CO')));
+        $this->_view->set('token',      md5(crypt(sprintf('%s|%s|%d|%d', $this->_input['email'], $this->_input['name'], $shop_id, intval($total)), 'CO')));
         $message = $this->_view->mail('mail_store_shop_confirm');
         $this->_logger->debug(sprintf('STORE SHOP MAIL CONFIRM: %s', $message));
 
