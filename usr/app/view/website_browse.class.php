@@ -12,6 +12,17 @@ class website_browse extends \app\view {
     protected $_js = [];
 
     public function execute () {
+
+        $input              = [
+            'products'      => true,
+            'offset_start'  => 0,
+            'offset_end'    => 30
+        ];
+
+        $stores      = $this->_api_client->get('/store', $input);
+
+        $this->set('stores', $stores);
+
         $this->_helper->set_metas([
             'title'         => 'browse all stores in canistro | canistro, your personal e-commerce.',
             'description'   => 'Browse all stores and products inside the canistro collection.',

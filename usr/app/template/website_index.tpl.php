@@ -60,7 +60,7 @@
                         <div class="caption">
                             <h5>renasboy</h5>
                             <p>This is a test canistro just to make the templates and the system.</p>
-                            <p><a class="btn btn-primary pull-right" href="/renasboy">Go Shop</a> <a class="btn" href="/renasboy/contact.html">Contact</a></p>
+                            <p><a class="btn btn-primary pull-right" href="/renasboy">Go Shop</a> <a class="btn" href="/renasboy/contact">Contact</a></p>
                         </div>
                     </div>
                     </li>
