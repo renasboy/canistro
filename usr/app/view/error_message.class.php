@@ -19,9 +19,19 @@ class error_message extends \app\view {
                 $this->set('description', 'The request you are placing is not correct, please verify the source of the request otherwise try our homepage.');
             break;
 
+            case 401:
+                $this->set('title', 'Access unauthorized');
+                $this->set('description', 'The request you are placing is not authorized, please verify your parameters and try again.');
+            break;
+
             case 404:
                 $this->set('title', 'Page not found');
                 $this->set('description', 'The page you are looking for is not found in this server, please check the address and try again.<br>If the address seems correct then it is possible that the page has moved.');
+            break;
+
+            case 412:
+                $this->set('title', 'Missing step');
+                $this->set('description', 'There is a missing step in the process you are trying to trigger. Please start the process again, if the problem persists contact our development team.');
             break;
 
             case 501:

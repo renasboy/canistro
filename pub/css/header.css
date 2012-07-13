@@ -1,0 +1,12 @@
+.navbar-form i {
+    vertical-align: middle;
+    margin-top: 5px;
+}
+
+.navbar-form .btn {
+    margin: 5px 0px 0px 0px;
+}
+
+.navbar .container > .label {
+    margin: 10px 10px 0px 0px;
+}

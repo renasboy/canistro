@@ -28,7 +28,7 @@ $(function () {
         }, 'This value doesn\'t match the acceptable pattern.');
 
 
-        $('form').validate({
+        $('#modal-form form').validate({
             rules: {
                 email: {
                     required: true,
@@ -74,26 +74,24 @@ $(function () {
         });
     };
 
-    $.validate_form();
-
-
     var sound_incorrect = new Audio('/snd/incorrect.wav');
     // method done while clicking to send the form
     $.done = function (e) {
         e.preventDefault();
         _gaq.push(['_trackEvent', 'canistro-home', 'done'])
-        $('form').validate();
-        if (!$('form').valid()) {
+        $('#modal-form form').validate();
+        if (!$('#modal-form form').valid()) {
             sound_incorrect.play();
             return false;
         }
-        $('form').submit();
+        _gaq.push(['_trackEvent', 'canistro-home', 'done-valid'])
+        $('#modal-form form').submit();
     };
 
     // reset form after successful post
     $.reset_form = function () {
-        $('form input').val('');
-        $('form .success').removeClass('success');
+        $('#modal-form form input').val('');
+        $('#modal-form form .success').removeClass('success');
         $('#email').parents('.control-group').find('.help-block').html('enter your email address here');
         $('#name').parents('.control-group').find('.help-block').html('enter your canistro\'s name here');
         $('.alert-success').removeClass('in').addClass('out, hide');
@@ -103,7 +101,7 @@ $(function () {
     // submit the form after successful validation
     $.submit = function (e) {
         e.preventDefault();
-        $.post('/', $('form').serializeArray(), function (data) {
+        $.post('/', $('#modal-form form').serializeArray(), function (data) {
             if (data == 'success') {
                 $('.alert-success').removeClass('out, hide').addClass('in').alert();
                 sound_message.play();
@@ -121,9 +119,10 @@ $(function () {
 
     $.build = function () {
         $(document).off('click', '#done').on('click', '#done', $.done);
-        $(document).off('submit', 'form').on('submit', 'form', $.submit);
+        $(document).off('submit', '#modal-form form').on('submit', '#modal-form form', $.submit);
         $(document).off('click', '.btn-success').on('click', '.btn-success', $.track);
         $(document).off('hidden', '#modal-form').on('hidden', '#modal-form', $.reset_form);
+        $.validate_form();
     };
 
     $.build();

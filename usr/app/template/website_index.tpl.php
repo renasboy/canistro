@@ -8,11 +8,11 @@
                     <p>
                         <a class="btn btn-success btn-large" data-target="#modal-form" href="#modal-form" data-toggle="modal">Try now for free.</a>
                     </p>
-                    <p>
+                    <p class="visible-desktop">
                         With canistro you can easily publish your products and have them avaible worldwide in matter of seconds.
-                        Canistro is completely free up until 30 products and you can have as many canistros as you like.
+                        Canistro is completely free, it is possible to add up until 30 products and you can have as many canistro stores as you like.
                     </p>
-                    <p>
+                    <p class="visible-desktop">
                         Canistro was designed for individuals, the goal is to use basic everyday actions, as sending/receiving mails and upload photos,
                         to create a professional personal e-commerce and sell your products in the internet.
                     </p>
@@ -70,4 +70,4 @@
 
     <?php $view->add('website_signup'); ?>
 
-    <a href="https://github.com/renasboy/canistro" class="github"><img src="/img/fork-me-on-github.png" alt="fork canistro on github"></a>
+    <a href="https://github.com/renasboy/canistro" class="github visible-desktop"><img src="/img/fork-me-on-github.png" alt="fork canistro on github"></a>
