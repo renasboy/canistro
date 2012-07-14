@@ -1,0 +1,17 @@
+#price {
+    text-align: right;
+}
+
+#modal-form-product form img {
+    border: 1px solid #000000;
+    margin-right: 10px;
+}
+
+#modal-form-product form .control-group.error img {
+    border: 1px solid #880000;
+}
+
+.btn.off,
+.btn.edit {
+    margin-right: 10px;
+}

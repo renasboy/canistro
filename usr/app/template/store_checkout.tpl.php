@@ -1,4 +1,4 @@
-    <div class="modal fade hide" id="modal-form">
+    <div class="modal fade hide" id="modal-form-checkout">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">×</button>
             <h3>Checkout this order now!</h3>

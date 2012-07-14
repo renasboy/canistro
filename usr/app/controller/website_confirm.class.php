@@ -41,6 +41,7 @@ class website_confirm extends \app\simple_controller {
             $this->_error->internal_server_error('save store status to active: ' . $store->id);
         }
 
+        $this->_session->set('auth', 'store', $store);
         $this->_view->set('store_name', $store->name);
     }
 }

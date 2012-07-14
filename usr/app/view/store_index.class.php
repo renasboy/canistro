@@ -8,10 +8,13 @@ class store_index extends \app\view {
     protected $_view = 'store_index';
 
     protected $_subs = [
-        'store_checkout'    => null
+        'store_checkout'    => null,
+        'store_product'     => null
     ];
 
-    protected $_css = [];
+    protected $_css = [
+        '/css/store_index.css'
+    ];
 
     protected $_js = [
         '/js/store_index.js'

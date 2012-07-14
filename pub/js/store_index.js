@@ -18,10 +18,11 @@ $(function () {
             success: function (label) {
                 $('#' + label.attr('for')).parents('.control-group').find('.help-block').html('This field is verified');
             },
-            errorElement: 'span'
+            errorElement: 'span',
+            ignore: null // This is necessary to not ignore type="hidden"
         });
 
-        $('form').validate({
+        $('#modal-form-checkout form').validate({
             rules: {
                 email: {
                     required: true,
@@ -34,58 +35,75 @@ $(function () {
                 }
             }
         });
+
+        $('#modal-form-product form').validate({
+            rules: {
+                img: {
+                    required: true
+                },
+                name: {
+                    required: true
+                },
+                price: {
+                    required: true,
+                    digits: true,
+                    min: 1
+                }
+            },
+            messages: {
+            }
+        });
     };
+
     $.validate_form();
 
-    var sound_incorrect = new Audio('/snd/incorrect.wav');
     // method while clicking on send the form
     $.done = function (e) {
         e.preventDefault();
         _gaq.push(['_trackEvent', 'canistro-store', 'done'])
 
-        $('form').validate();
-        if (!$('form').valid()) {
-            sound_incorrect.play();
+        $('#modal-form-checkout form').validate();
+        if (!$('#modal-form-checkout form').valid()) {
+            $.sound_incorrect.play();
             return false;
         }
-        $('form').submit();
+        $('#modal-form-checkout form').submit();
     };
 
     // reset form after successful post
-    $.reset_form = function () {
-        $('form input, form textarea').val('');
-        $('form .success').removeClass('success');
+    $.reset_checkout_form = function () {
+        $('#modal-form-checkout form input, #modal-form-checkout form textarea').val('');
+        $('#modal-form-checkout form .success').removeClass('success');
+        $('#modal-form-checkout form .error').removeClass('error');
         $('#email').parents('.control-group').find('.help-block').html('enter your email address here');
-        //$('#address').parents('.control-group').find('.help-block').html('enter your delivery address here');
-        //$('#comments').parents('.control-group').find('.help-block').html('enter your comments here');
-        $('.alert-success').removeClass('in').addClass('out, hide');
+        $('#modal-form-checkout .alert-success').removeClass('in').addClass('out, hide');
     };
 
-    var sound_message = new Audio('/snd/message.wav');
     // submit the form after successful validation
-    $.submit = function (e) {
+    $.checkout = function (e) {
         e.preventDefault();
-        $.post('/' + $('.brand').html() + '/checkout', $('form').serializeArray(), function (data) {
+        $.post('/' + $('.brand').html() + '/checkout', $('#modal-form-checkout form').serializeArray(), function (data) {
             if (data == 'success') {
-                $('.alert-success').removeClass('out, hide').addClass('in').alert();
-                sound_message.play();
+                $('#modal-form-checkout .alert-success').removeClass('out, hide').addClass('in').alert();
+                $.sound_message.play();
                 // update shopping cart
                 $.update_cart('get'); 
-                setTimeout(function () {$('#modal-form').modal('hide');}, 5000);
+                setTimeout(function () {$('#modal-form-checkout').modal('hide');}, 5000);
                 _gaq.push(['_trackEvent', 'canistro-store', 'success'])
             }
         });
     };
 
-    var sound_modal = new Audio('/snd/powerup.wav');
+    $.show_form = function () {
+        $.sound_modal.play();
+    }
+
     $.track = function () {
-        sound_modal.play();
         _gaq.push(['_trackEvent', 'canistro-store', 'checkout'])
     };
 
     var interval_cart   = null;
     var wait_cart       = false;
-    var sound_cart      = new Audio('/snd/coin.wav');
     $.update_cart = function (action, id) {
         if (wait_cart) {
             return false;
@@ -94,7 +112,7 @@ $(function () {
         $('.label-success').addClass('label-warning').removeClass('label-success');
         $('.cart-total').addClass('active');
         if (id) {
-            sound_cart.play();
+            $.sound_cart.play();
         }
         // TODO add error handling for http call
         $.post('/renasboy/cart/' + action, {'id': id}, function (data) {
@@ -134,7 +152,7 @@ $(function () {
                     html += '</tr>';
 
                     html += '<tr>';
-                    html += '<td colspan="4"><a class="btn-success btn-large btn pull-right" data-target="#modal-form" href="#modal-form" data-toggle="modal"><i class="icon-ok icon-white"></i> CHECKOUT</a></td>';
+                    html += '<td colspan="4" class="checkout"><a class="btn-success btn-large btn pull-right" data-target="#modal-form-checkout" href="#modal-form-checkout" data-toggle="modal"><i class="icon-ok icon-white"></i> CHECKOUT</a></td>';
                     html += '</tr>';
 
                     html += '</tbody>';
@@ -202,22 +220,141 @@ $(function () {
             var margin = ($('.thumbnails-wrapper').height() - $('.thumbnails .span3').eq(0).outerHeight(true)) / 2;
             $('.thumbnails .span3:first').css({'margin-top': margin});
             $('.thumbnails .span3:last').css({'margin-bottom': margin});
-            var top = $('.thumbnail .carousel-inner > a').eq(1).offset().top + $('.thumbnails-wrapper').scrollTop() - ($('.thumbnails-wrapper').height() / 2)
+            if ($('.thumbnail .carousel-inner > a').eq(1).length) {
+                var top = $('.thumbnail .carousel-inner > a').eq(1).offset().top + $('.thumbnails-wrapper').scrollTop() - ($('.thumbnails-wrapper').height() / 2)
+            }
+            else {
+                var top = 100;
+            }
             $('.thumbnails-wrapper').animate({'scrollTop': top});
         });
     };
 
+    // admin methods
+    // method while clicking on send the form
+    $.product = function (e) {
+        e.preventDefault();
+
+        $('#modal-form-product form').validate();
+        if (!$('#modal-form-product form').valid()) {
+            $.sound_incorrect.play();
+            return false;
+        }
+        $('#modal-form-product form').submit();
+    };
+
+    $.save_product = function (e) {
+        e.preventDefault();
+        $.post('/' + $('.brand').html() + '/product', $('#modal-form-product form').serializeArray(), function (data) {
+            if (data == 'success') {
+                $('#modal-form-product .alert-success').removeClass('out, hide').addClass('in').alert();
+                $.sound_message.play();
+                // update shopping cart
+                setTimeout(function () {$('#modal-form-product').modal('hide');}, 5000);
+            }
+        });
+    };
+
+    // reset form after successful post
+    $.reset_product_form = function () {
+        $('#modal-form-product form img').attr('src', 'http://placehold.it/80&text=browse');
+        $('#modal-form-product form input, #modal-form-product form textarea').val('');
+        $('#modal-form-product form .success').removeClass('success');
+        $('#modal-form-product form .error').removeClass('error');
+        $('#name').parents('.control-group').find('.help-block').html('enter product name here');
+        $('#price').parents('.control-group').find('.help-block').html('enter product price here');
+        $('#modal-form-product .alert-success, #modal-form-product .alert-error').removeClass('in').addClass('out, hide');
+    };
+
+    $.build_uploader = function () {
+        // Upload button
+        var uploader = new plupload.Uploader({
+            runtimes : 'html5',
+            url : '/' + $('.brand').html() + '/upload',
+            max_file_size : '3mb',
+            browse_button : 'upload',
+            filters : [
+                {title : "Afbeeldingen", extensions : "jpg,jpeg,gif,png"}
+            ]
+        });
+        uploader.bind('Error', function (uploader, error) {
+            var message = 'error';
+            if (error.message == 'File extension error.') {
+                message = 'This image is not a valid image, please use jpg, gif or png.';
+            }
+            else if (error.message == 'File size error.') {
+                message = 'This image is to heavy in size, please limit to 3MB.';
+            }
+            $('#modal-form-product .alert-error').removeClass('out, hide').addClass('in').alert();
+            setTimeout(function () {$('#modal-form-product .alert-error').removeClass('in').addClass('out, hide');}, 3000);
+            //$.append_error(message);
+        });
+        uploader.bind('QueueChanged', function (uploader) {
+            uploader.start();
+        });
+        /* TODO TEST IE AND OPERA BEFORE APPLYING THIS
+        uploader.bind('Refresh', function(up) {
+            // fixing positioning for browsers that do not work
+            if ($.browser.msie || $.browser.opera) {
+                // show button and all parents in order to get the properties
+                var button  = $('#upload').parents().show();
+                $('form[target="' + uploader.id + '_iframe"]').css({
+                    top:    button.offset().top,
+                    left:   button.offset().left,
+                    width:  button.outerWidth(),
+                    height: button.outerHeight(),
+                    zIndex: 300
+                });
+            }
+        });
+        */
+        uploader.bind('FileUploaded', function (uploader, file, response) {
+            if (!response.response.match(/^tmp\//)) {
+                $('#modal-form-product .alert-important').removeClass('out, hide').addClass('in').alert();
+                return;
+            }
+            $('#upload-image').attr('src', '/img/' + response.response.replace('/', '/fit-80x80-white/') + '?' + Math.random());
+            $('#img').val(response.response);
+        });
+        //uploader.refresh();
+        uploader.init();
+    }
+
     $.build = function () {
+        $.sound_incorrect   = new Audio('/snd/incorrect.wav');
+        $.sound_message     = new Audio('/snd/message.wav');
+        $.sound_modal       = new Audio('/snd/powerup.wav');
+        $.sound_cart        = new Audio('/snd/coin.wav');
+
         $(document).off('slid', '#product-carousel').on('slid', '#product-carousel', $.change_thumbs);
         $(document).off('click', '.carousel-inner > a').on('click', '.carousel-inner > a', $.change_carousel);
         $(document).off('click', '#done').on('click', '#done', $.done);
-        $(document).off('submit', 'form').on('submit', 'form', $.submit);
-        $(document).off('click', '.btn-success').on('click', '.btn-success', $.track);
+        $(document).off('submit', '#modal-form-checkout form').on('submit', '#modal-form-checkout form', $.checkout);
+        $(document).off('click', '.checkout .btn-success').on('click', '.checkout .btn-success', $.track);
         $(document).off('click', '.add-cart').on('click', '.add-cart', $.add_cart);
         $(document).off('click', '.icon-trash').on('click', '.icon-trash', $.remove_cart);
-        $(document).off('hidden', '#modal-form').on('hidden', '#modal-form', $.reset_form);
-        setTimeout($.expand_nav, 1000);
+        $(document).off('show', '#modal-form-checkout').on('show', '#modal-form-checkout', $.show_form);
+        $(document).off('hidden', '#modal-form-checkout').on('hidden', '#modal-form-checkout', $.reset_checkout_form);
+        $('#product-carousel').carousel();
+        $('#product-carousel .active img').load(function () {
+            setTimeout($.expand_nav, 1000);
+        });
         $.update_cart('get');
+
+        // admin events
+        if ($('#product').length) {
+            $(document).off('click', '#product').on('click', '#product', $.product);
+            $(document).off('submit', '#modal-form-product form').on('submit', '#modal-form-product form', $.save_product);
+            $(document).off('show', '#modal-form-product').on('show', '#modal-form-product', $.show_form);
+            $(document).off('hidden', '#modal-form-product').on('hidden', '#modal-form-product', $.reset_product_form);
+
+            /*
+            $('#product-carousel .btn-primary').before($('<a href="#" class="btn btn-large edit"><i class="icon-edit"></i> EDIT</a><a href="#" class="btn btn-large off"><i class="icon-off"></i> OFF</a>'));
+            $('.thumbnails .btn-primary').before($('<a href="#" class="btn btn-mini edit"><i class="icon-edit"></i> EDIT</a><a href="#" class="btn btn-mini off"><i class="icon-off"></i> OFF</a>'));
+            */
+
+            $.build_uploader();
+        }
     };
 
     $.build();

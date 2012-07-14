@@ -13,7 +13,7 @@ class image_server extends \app\simple_controller {
 
     protected function _validate_input () {
         // validate the input param
-        $this->_validator->validate('is_in_list',       $this->_input['dir'], ['product', 'category']);
+        $this->_validator->validate('is_in_list',       $this->_input['dir'], ['product', 'category', 'tmp']);
         $this->_validator->validate('is_img_params',    $this->_input['params']);
         $this->_validator->validate('is_img_file',      $this->_conf->get('image_root') . '/' . $this->_input['dir'] . '/' . $this->_input['image']);
 

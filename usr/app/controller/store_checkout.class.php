@@ -34,7 +34,7 @@ class store_checkout extends \app\simple_controller {
             $this->_validator->validate('is_text',  $this->_input['address']);
         }
 
-        if ($this->_input['address']) {
+        if ($this->_input['comments']) {
             $this->_validator->validate('is_text',  $this->_input['comments']);
         }
 

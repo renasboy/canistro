@@ -5,7 +5,13 @@
             <div class="span12">
                 <div class="hero-unit">
                     <h1>This is the <?php print $store_name; ?> store</h1>
-                    <p>There are no current products in the store, and this means they are probably being prepared right now, so please come back later.</p>
+                    <p>
+                    <?php if (!empty($admin)) { ?>
+                    In order to create your first product just click the add product button.
+                    <?php } else { ?>
+                    There are no current products in the store, and this means they are probably being prepared right now, so please come back later.
+                    <?php } ?>
+                    </p>
                 </div>
             </div>
 
@@ -34,7 +40,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="span9 checkout"><a class="btn-success btn-large btn pull-right" data-target="#modal-form" href="#modal-form" data-toggle="modal"><i class="icon-ok icon-white"></i> CHECKOUT</a></div>
+                    <div class="span9 checkout"><a class="btn-success btn-large btn pull-right" data-target="#modal-form-checkout" href="#modal-form-checkout" data-toggle="modal"><i class="icon-ok icon-white"></i> CHECKOUT</a></div>
                 </div>
 
             </div>
@@ -62,5 +68,7 @@
             <?php } ?>
 
         </div>
-
-    <?php $view->add('store_checkout'); ?>
+<?php $view->add('store_checkout'); ?>
+<?php if (!empty($admin)) { ?>
+<?php $view->add('store_product'); ?>
+<?php } ?>

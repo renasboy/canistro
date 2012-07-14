@@ -101,7 +101,7 @@ $(function () {
     // submit the form after successful validation
     $.submit = function (e) {
         e.preventDefault();
-        $.post('/', $('#modal-form form').serializeArray(), function (data) {
+        $.post('/signup', $('#modal-form form').serializeArray(), function (data) {
             if (data == 'success') {
                 $('.alert-success').removeClass('out, hide').addClass('in').alert();
                 sound_message.play();
