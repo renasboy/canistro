@@ -48,9 +48,13 @@ $(function () {
                     required: true,
                     digits: true,
                     min: 1
+                },
+                description: {
+                    maxlength: 255
                 }
             },
             messages: {
+                    maxlength: 'Please enter a name with maximum 30 chars.',
             }
         });
     };

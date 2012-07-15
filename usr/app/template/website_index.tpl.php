@@ -64,7 +64,7 @@
                         <div class="caption">
                             <h5><?php print $highlight->name; ?></h5>
                             <?php if (!empty($highlight->about)) { ?>
-                            <p><?php print strip_tags($highlight->about); ?></p>
+                            <p><?php print substr(strip_tags($highlight->about), 0, 255); ?></p>
                             <?php } ?>
                             <p><a class="btn btn-primary pull-right" href="/<?php print $highlight->name; ?>">Go Shop</a> <a class="btn" href="/<?php print $highlight->name; ?>/contact">Contact</a></p>
                         </div>

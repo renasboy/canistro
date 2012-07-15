@@ -24,7 +24,7 @@
                             <div class="caption">
                                 <h5><?php print $store->name; ?></h5>
                                 <?php if (!empty($store->about)) { ?>
-                                <p><?php print strip_tags($store->about); ?></p>
+                                <p><?php print substr(strip_tags($store->about), 0, 255); ?></p>
                                 <?php } ?>
                                 <p><a class="btn btn-primary pull-right" href="/<?php print $store->name; ?>">Go Shop</a> <a class="btn" href="/<?php print $store->name; ?>/contact">Contact</a></p>
                             </div>
