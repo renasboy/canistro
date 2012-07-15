@@ -18,8 +18,15 @@ class website_index extends \app\view {
     ];
 
     public function execute () {
-        //$store  = $this->_api_client->get('/store', [ 'offset_end' => 1 ])[0];
-        //$this->set('store', $store);
+        // highlight is hardcoded for now
+        $input  = [
+            'products'      => true,
+            'name'          => 'groo-o-errante-colecao',
+            'offset_start'  => 0,
+            'offset_end'    => 1
+        ];
+        $highlight  = $this->_api_client->get('/store', $input)[0];
+        $this->set('highlight', $highlight);
         
         $this->_helper->set_metas([
             'title'         => 'canistro, your personal e-commerce.',

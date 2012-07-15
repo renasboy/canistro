@@ -212,7 +212,6 @@ $(function () {
     }
 
     $.expand_nav = function () {
-        //setTimeout(, 1000);
         // resize wrapper
         $('.thumbnails-wrapper').css({'width': $('.thumbnails-wrapper').width() + 20});
         $('.thumbnails-wrapper').animate({'height': $('#product-carousel').height()}, 1000, function () {

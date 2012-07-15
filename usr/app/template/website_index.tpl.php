@@ -55,14 +55,18 @@
                 <p>This is the highlight canistro of the month.</p>
                 <ul class="thumbnails">
                     <li class="span3">
+                    <?php if (!empty($highlight)) { ?>
                     <div class="thumbnail">
-                        <a href="/renasboy"><img alt="" src="http://placehold.it/260x146"></a>
+                        <a href="/<?php print $highlight->name; ?>"><?php print str_replace('height="146"', null, $helper->image($highlight->products[0]->img, $highlight->products[0]->name, 260, 146)); ?></a>
                         <div class="caption">
-                            <h5>renasboy</h5>
-                            <p>This is a test canistro just to make the templates and the system.</p>
-                            <p><a class="btn btn-primary pull-right" href="/renasboy">Go Shop</a> <a class="btn" href="/renasboy/contact">Contact</a></p>
+                            <h5><?php print $highlight->name; ?></h5>
+                            <?php if (!empty($highlight->about)) { ?>
+                            <p><?php print strip_tags($highlight->about); ?></p>
+                            <?php } ?>
+                            <p><a class="btn btn-primary pull-right" href="/<?php print $highlight->name; ?>">Go Shop</a> <a class="btn" href="/<?php print $highlight->name; ?>/contact">Contact</a></p>
                         </div>
                     </div>
+                    <?php } ?>
                     </li>
                 </ul>
             </div>
