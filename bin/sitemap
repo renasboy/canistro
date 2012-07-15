@@ -1,0 +1,75 @@
+#!/bin/bash
+# define constants with APP_ROOT
+APP_ROOT=`readlink -f $(dirname $0)/..`
+PARENT_ROOT=`readlink -f $APP_ROOT/..`
+
+# read all vars in configuration file
+eval $(sed -n -e 's/APP_ROOT/$APP_ROOT/g' -e '/=/p' $APP_ROOT/etc/app.ini)
+eval $(sed -n -e '/=/p' $api_root/etc/api.ini)
+
+tmp_dir=`mktemp -d`
+sitemap=$tmp_dir/sitemap.xml
+
+trap cleanexit EXIT
+
+cleanexit () {
+    if test -d "$tmp_dir"; then
+        rm -rf "$tmp_dir"
+    fi
+}
+
+move_file () {
+    add_footer
+    sed -i 's/&/&amp;/g' $sitemap
+    cp $sitemap $APP_ROOT/pub/
+}
+
+add_header () {
+    echo '<?xml version="1.0" encoding="UTF-8"?>' > $sitemap
+    echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> $sitemap
+}
+
+add_footer () {
+    echo "</urlset>" >> $sitemap
+}
+
+add_url () {
+    local priority=$1
+    local changefreq=$2
+    local url=$3
+    if ! test -f "$sitemap"; then
+        add_header
+    fi
+    
+    echo "<url>" >> $sitemap
+    echo "<loc>http://$url</loc>" >> $sitemap
+    echo "<changefreq>$changefreq</changefreq>" >> $sitemap
+    echo "<priority>$priority</priority>" >> $sitemap
+    echo "</url>" >> $sitemap
+}
+
+add_urls () {
+    local priority=$1
+    local changefreq=$2
+    local query=$3
+    /usr/local/mysql/bin/mysql -h $db_host -N $db_name -u $db_user -B -e "$query" -p"$db_pass" | while read line; do
+        arr=($line)
+        url=${arr[0]}
+        add_url $priority $changefreq $base_host/$url
+        add_url $priority $changefreq $base_host/$url/about
+        add_url $priority $changefreq $base_host/$url/payment-and-delivery
+        add_url $priority $changefreq $base_host/$url/contact
+    done
+}
+
+# HOME
+add_url 1.0 monthly $base_host
+add_url 1.0 monthly $base_host/about
+add_url 1.0 daily $base_host/browse
+add_url 1.0 monthly $base_host/contact
+
+# CONTENT
+query="SELECT name FROM store WHERE active = 1"
+add_urls 1.0 monthly "$query"
+
+move_file
