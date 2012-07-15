@@ -23,20 +23,15 @@ foreach ($js as $file) {
 }
 ?>
 
-<script>
-    window.google_analytics_uacct = "UA-4145216-7";
-    google_analytics_domain_name=".linuxforme.com";
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-4145216-7']);
-    _gaq.push(['_setDomainName', '.linuxforme.com']);
-    _gaq.push(['_setAllowLinker', true]);
-    _gaq.push(['_setAllowHash', false]);
-    _gaq.push(['_trackPageview']);
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-33408401-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
 </script>
 
 </head>
