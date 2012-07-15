@@ -40,8 +40,8 @@
                     <div class="control-group">
                         <label class="control-label" for="price">product price</label>
                         <div class="controls">
-                            <div class="input-append">
-                            <input type="text" class="span2" name="price" id="price" placeholder="100"><span class="add-on">.00</span>
+                            <div class="input-append input-prepend">
+                            <span class="add-on">&euro;</span><input type="text" class="span1" name="price" id="price" placeholder="100"><span class="add-on">.00</span>
                             </div>
                             <p class="help-block">enter produce price here</p>
                         </div>
