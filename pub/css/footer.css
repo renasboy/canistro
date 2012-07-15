@@ -2,4 +2,20 @@ footer {
     border-top: 1px solid #DDDDDD;
     margin-top: 10px;
     padding: 10px 0px;
+    position: relative;
+}
+
+footer .social {
+    position: absolute;
+    top: 10px;
+    left: 400px;
+}
+
+.social .fb-like iframe{
+    width: 48px !important;
+}
+
+.social > * {
+    vertical-align: top;
+    margin-right: 5px;
 }
