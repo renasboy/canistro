@@ -18,6 +18,7 @@
             </div>
 
             <form class="form-horizontal" method="post">
+                <input type="hidden" name="id" id="id" value="">
                 <fieldset>
                     <div class="control-group">
                         <input type="hidden" name="img" id="img" value="">

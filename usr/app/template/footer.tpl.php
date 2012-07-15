@@ -4,13 +4,20 @@
             <footer class="footer">
                 <p>
 
-                <?php if (!empty($admin)) { ?>
+                <?php
+                if (!empty($admin)) {
+                    if (!empty($admin_button)) {
+                    ?>
                 <a class="btn-success btn-large btn pull-right" data-target="#modal-form-product" href="#modal-form-product" data-toggle="modal"><i class="icon-plus icon-white"></i> PRODUCT</a>
-                <?php } ?>
+                <?php } else { ?>
+                <a class="btn-success btn-large btn pull-right" data-target="#modal-form-content" href="#modal-form-content" data-toggle="modal"><i class="icon-pencil icon-white"></i> EDIT THIS PAGE</a>
+                <?php
+                    }
+                }
+                ?>
 
                 <a href="/">canistro online</a> 2012 - copyleft by linux for me 2009 - <?php print date('Y'); ?><br>
                 designed and build by renasboy with <a href="https://github.com/renasboy/php-mysql-micro-framework">php mysql micro framework</a>.<br> 
-
 
                 </p>
             </footer>

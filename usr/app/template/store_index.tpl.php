@@ -22,10 +22,20 @@
                     <!-- Carousel items -->
                     <div class="carousel-inner">
                         <?php foreach ($store->products as $key => $product) { ?>
-                        <div class="<?php print $key == 0 ? 'active ' : null; ?>item" data-id="<?php print $product->id; ?>" data-slide="<?php print $key; ?>">
+                        <div class="item<?php print $key == 0 ? ' active' : null; ?><?php print empty($product->active) ? ' off' : null; ?>" data-id="<?php print $product->id; ?>" data-product='<?php print json_encode($product, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP); ?>' data-slide="<?php print $key; ?>">
                             <?php print str_replace('height="1080"', null, $helper->image($product->img, $product->name, 1920, 1080)); ?>
                             <div class="carousel-caption">
-                                <p class="pull-right"><a class="btn btn-large btn-primary add-cart" href="#" data-product="<?php print $product->id; ?>"><i class="icon-plus icon-white"></i> &euro;<?php print $product->price; ?></a></p>
+                                <p class="pull-right">
+                                <?php if (!empty($admin)) { ?>
+                                <a href="#" class="btn btn-large product-edit"><i class="icon-pencil"></i> EDIT</a>
+                                <?php if (!empty($product->active)) { ?>
+                                <a href="#" class="btn btn-large product-flag"><i class="icon-off"></i> ON</a>
+                                <?php } else { ?>
+                                <a href="#" class="btn btn-large product-flag"><i class="icon-off"></i> OFF</a>
+                                <?php } ?>
+                                <?php } ?>
+                                <a class="btn btn-large btn-primary add-cart" href="#" data-product="<?php print $product->id; ?>"><i class="icon-plus icon-white"></i> &euro;<?php print $product->price; ?></a>
+                                </p>
                                 <h4><?php print $product->name; ?></h4>
                                 <?php if (!empty($product->description)) { ?>
                                 <p class="visible-desktop"><?php print $product->description; ?></p>

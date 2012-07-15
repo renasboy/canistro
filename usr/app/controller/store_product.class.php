@@ -4,6 +4,7 @@ namespace app\controller;
 class store_product extends \app\simple_controller {
 
     protected $_default_input   = [
+        'id'                    => null,
         'store_name'            => null,
         'img'                   => null,
         'name'                  => null,
@@ -36,6 +37,14 @@ class store_product extends \app\simple_controller {
             $this->_validator->validate('is_text',  $this->_input['description']);
         }
 
+        if ($this->_input['id']) {
+            $this->_validator->validate('is_entity', 'product', 'id', $this->_input['id'], [ 'store' => $this->_input['store_name']]);
+        }
+        else {
+            // this null is a string, used to compose the resource url
+            $this->_input['id'] = 'null';
+        }
+
         if ($this->_validator->error()) {
             $this->_error->bad_request('product: ' . $this->_validator->error());
         }
@@ -61,8 +70,8 @@ class store_product extends \app\simple_controller {
             'price'         => $this->_input['price'],
             'description'   => $this->_input['description']
         ];
-        
-        $product_id = $this->_api_client->save('/product/null', $input);
+
+        $product_id = $this->_api_client->save('/product/' . $this->_input['id'], $input);
 
         if (!$product_id) {
             $this->_error->internal_server_error('save product with data: ' . print_r($input, true));

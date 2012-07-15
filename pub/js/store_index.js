@@ -317,7 +317,35 @@ $(function () {
         });
         //uploader.refresh();
         uploader.init();
-    }
+    };
+
+    $.product_edit = function () {
+        var product = $(this).parents('.item').data('product');
+        $('#modal-form-product #id').val(product.id);
+        $('#modal-form-product #img').val(product.img);
+        $('#upload-image').attr('src', '/img/' + product.img.replace('/', '/fit-80x80-white/') + '?' + Math.random());
+        $('#modal-form-product #name').val(product.name);
+        $('#modal-form-product #price').val(parseInt(product.price));
+        $('#modal-form-product #description').val(product.description);
+        $('#modal-form-product').modal('show');
+    };
+
+    $.product_flag = function () {
+        var product = $(this).parents('.item').data('product');
+        var button  = $(this);
+        $.post('/' + $('.brand').html() + '/flag', { 'id': product.id }, function (data) {
+            if (data == 'success') {
+                if (button.html().match(/OFF/)) {
+                    button.html(button.html().replace(/OFF/, 'ON'));
+                    button.parents('.item').removeClass('off');
+                }
+                else {
+                    button.html(button.html().replace(/ON/, 'OFF'));
+                    button.parents('.item').addClass('off');
+                }
+            }
+        });
+    };
 
     $.build = function () {
         $.sound_incorrect   = new Audio('/snd/incorrect.wav');
@@ -346,12 +374,8 @@ $(function () {
             $(document).off('submit', '#modal-form-product form').on('submit', '#modal-form-product form', $.save_product);
             $(document).off('show', '#modal-form-product').on('show', '#modal-form-product', $.show_form);
             $(document).off('hidden', '#modal-form-product').on('hidden', '#modal-form-product', $.reset_product_form);
-
-            /*
-            $('#product-carousel .btn-primary').before($('<a href="#" class="btn btn-large edit"><i class="icon-edit"></i> EDIT</a><a href="#" class="btn btn-large off"><i class="icon-off"></i> OFF</a>'));
-            $('.thumbnails .btn-primary').before($('<a href="#" class="btn btn-mini edit"><i class="icon-edit"></i> EDIT</a><a href="#" class="btn btn-mini off"><i class="icon-off"></i> OFF</a>'));
-            */
-
+            $(document).off('click', '.product-edit').on('click', '.product-edit', $.product_edit);
+            $(document).off('click', '.product-flag').on('click', '.product-flag', $.product_flag);
             $.build_uploader();
         }
     };

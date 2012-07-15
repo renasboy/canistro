@@ -34,6 +34,15 @@ class store_index extends \app\view {
             $this->_error->not_implemented('store: ' . $this->get('store_name'));
         }
 
+        // if case of admin get all products
+        if ($this->get('admin')) {
+            $input          = [
+                'store'     => $this->get('store_name') ,
+                'active'    => [0, 1]
+            ];
+            $store->products = $this->_api_client->get('/product', $input);
+        }
+
         $this->set('store', $store);
 
         $this->_helper->set_metas([

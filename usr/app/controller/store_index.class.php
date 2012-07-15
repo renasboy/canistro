@@ -21,6 +21,7 @@ class store_index extends \app\simple_controller {
         
         if ($auth_store && $auth_store->name == $this->_input['name']) {
             $this->_view->set('admin', true);
+            $this->_view->set('admin_button', 'product');
         }
     }
 }
