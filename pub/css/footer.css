@@ -11,10 +11,6 @@ footer .social {
     left: 400px;
 }
 
-.social .fb-like iframe{
-    width: 48px !important;
-}
-
 .social > * {
     vertical-align: top;
     margin-right: 5px;
