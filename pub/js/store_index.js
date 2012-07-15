@@ -119,7 +119,7 @@ $(function () {
             $.sound_cart.play();
         }
         // TODO add error handling for http call
-        $.post('/renasboy/cart/' + action, {'id': id}, function (data) {
+        $.post('/' + $('.brand').html() + '/cart/' + action, {'id': id}, function (data) {
             if (data) {
                 var total = data.total;
                 var qty = data.quantity;
