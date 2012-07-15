@@ -55,9 +55,12 @@
                 <p>This is the highlight canistro of the month.</p>
                 <ul class="thumbnails">
                     <li class="span3">
-                    <?php if (!empty($highlight)) { ?>
+                    <?php
+                    if (!empty($highlight)) {
+                        $index = count($highlight->products) - 1;
+                        ?>
                     <div class="thumbnail">
-                        <a href="/<?php print $highlight->name; ?>"><?php print str_replace('height="146"', null, $helper->image($highlight->products[0]->img, $highlight->products[0]->name, 260, 146)); ?></a>
+                        <a href="/<?php print $highlight->name; ?>"><?php print str_replace('height="146"', null, $helper->image($highlight->products[$index]->img, $highlight->products[$index]->name, 260, 146)); ?></a>
                         <div class="caption">
                             <h5><?php print $highlight->name; ?></h5>
                             <?php if (!empty($highlight->about)) { ?>
