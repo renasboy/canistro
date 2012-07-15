@@ -20,7 +20,7 @@
                     <ul class="thumbnails">
                         <li class="span3">
                         <div class="thumbnail">
-                            <a href="/<?php print $store->name; ?>"><img alt="<?php print $product->name; ?>" src="<?php print $product->img; ?>"></a>
+                            <a href="/<?php print $store->name; ?>"><?php print str_replace('height="146"', null, $helper->image($product->img, $product->name, 260, 146)); ?></a>
                             <div class="caption">
                                 <h5><?php print $store->name; ?></h5>
                                 <?php if (!empty($store->about)) { ?>
