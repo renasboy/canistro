@@ -9,9 +9,15 @@ class store_info extends \app\view {
 
     protected $_subs = [];
 
-    protected $_css = [];
+    protected $_css = [
+        '/css/bootstrap-wysihtml5.css'
+    ];
 
-    protected $_js = [];
+    protected $_js = [
+        '/js/wysihtml5.js',
+        '/js/bootstrap-wysihtml5.js',
+        '/js/store_info.js'
+    ];
 
     public function execute () {
         $input              = [
