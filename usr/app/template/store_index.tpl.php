@@ -23,7 +23,7 @@
                     <div class="carousel-inner">
                         <?php foreach ($store->products as $key => $product) { ?>
                         <div class="item<?php print $key == 0 ? ' active' : null; ?><?php print empty($product->active) ? ' off' : null; ?>" data-id="<?php print $product->id; ?>" data-product='<?php print json_encode($product, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP); ?>' data-slide="<?php print $key; ?>">
-                            <?php print str_replace('height="1080"', null, $helper->image($product->img, $product->name, 1920, 1080)); ?>
+                            <?php print str_replace('height="540"', null, $helper->image($product->img, $product->name, 960, 540)); ?>
                             <div class="carousel-caption">
                                 <p class="pull-right">
                                 <?php if (!empty($admin)) { ?>
