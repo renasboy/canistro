@@ -1,7 +1,7 @@
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container">
-                <a class="brand" href="/">Canistro <sup><span class="label label-important">alpha</span></sup></a>
+                <a class="brand" href="/">Canistro <sup><span class="label label-important">beta</span></sup></a>
 
                 <ul class="nav">
                     <li class="home visible-desktop"><a href="/">Home</a></li>
