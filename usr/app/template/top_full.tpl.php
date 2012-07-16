@@ -7,8 +7,9 @@
 <meta name="keywords" content="HTML_META_KEYWORDS">
 <meta name="author" content="renas - renasboy@gmail.com">
 
-<link rel="shortcut icon" href="/images/favicon.png" type="image/png">
-<link rel="apple-touch-icon-precomposed" href="/images/appletouchicon.png">
+<link rel="shortcut icon" href="/img/favicon.png" type="image/png">
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/canistro-icon-57x57.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/canistro-icon-114x114.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>HTML_TITLE</title>

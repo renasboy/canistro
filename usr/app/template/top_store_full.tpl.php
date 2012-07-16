@@ -8,8 +8,6 @@
 <meta name="keywords" content="HTML_META_KEYWORDS">
 <meta name="author" content="renas - renasboy@gmail.com">
 
-<link rel="shortcut icon" href="/images/favicon.png" type="image/png">
-<link rel="apple-touch-icon-precomposed" href="/images/appletouchicon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>HTML_TITLE</title>
