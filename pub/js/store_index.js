@@ -59,8 +59,6 @@ $(function () {
         });
     };
 
-    $.validate_form();
-
     // method while clicking on send the form
     $.done = function (e) {
         e.preventDefault();
@@ -371,9 +369,10 @@ $(function () {
             setTimeout($.expand_nav, 1000);
         });
         $.update_cart('get');
+        $.validate_form();
 
-        // admin events
-        if ($('#product').length) {
+        // admin events if admin button is present
+        if ($('.product-add').length) {
             $(document).off('click', '#product').on('click', '#product', $.product);
             $(document).off('submit', '#modal-form-product form').on('submit', '#modal-form-product form', $.save_product);
             $(document).off('show', '#modal-form-product').on('show', '#modal-form-product', $.show_form);

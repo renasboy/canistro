@@ -8,9 +8,9 @@
                 if (!empty($admin)) {
                     if (!empty($admin_button)) {
                     ?>
-                <a class="btn-success btn-large btn pull-right" data-target="#modal-form-product" href="#modal-form-product" data-toggle="modal"><i class="icon-plus icon-white"></i> PRODUCT</a>
+                <a class="btn-success btn-large btn pull-right product-add" data-target="#modal-form-product" href="#modal-form-product" data-toggle="modal"><i class="icon-plus icon-white"></i> NEW PRODUCT</a>
                 <?php } else { ?>
-                <a class="btn-success btn-large btn pull-right" data-target="#modal-form-content" href="#modal-form-content" data-toggle="modal"><i class="icon-pencil icon-white"></i> EDIT THIS PAGE</a>
+                <a class="btn-success btn-large btn pull-right content-edit" href="#"><i class="icon-pencil icon-white"></i> SAVE THIS PAGE</a>
                 <?php
                     }
                 }
