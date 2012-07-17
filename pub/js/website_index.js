@@ -1,5 +1,6 @@
 $(function () {
 
+
     // simple method validate form, to config jquery validator
     $.validate_form = function () {
 
@@ -17,10 +18,12 @@ $(function () {
                 element.parents('.control-group').find('.help-block').html(error);
             },
             success: function (label) {
-                $('#' + label.attr('for')).parents('.control-group').find('.help-block').html('This field is verified');
+                $('#' + label.attr('for')).parents('.control-group').find('.help-block').html($.validate_verified);
             },
             errorElement: 'span'
         });
+
+        $.validator.messages.required = $.validate_required;
 
         // add jquery validator regexp method for precise matching
         $.validator.addMethod('regexp', function(value, element, param) {
@@ -60,15 +63,15 @@ $(function () {
             messages: {
                 email: {
                     //required: 'Please enter your email here.',
-                    email: 'Please enter a valid email here.',
-                    remote: 'This email is alredy in use, please login.'
+                    email: $.validate_email,
+                    remote: $.validate_email_remote
                 },
                 name: {
-                    //required: 'Please enter your canistro\'s name.',
-                    minlength: 'Please enter a name with minimum 5 chars.',
-                    maxlength: 'Please enter a name with maximum 30 chars.',
-                    regexp: 'Please enter only alfa-numeric chars.',
-                    remote: 'This name is already in use, please try another one.'
+                    //required: $.validate_name,
+                    minlength: $.validate_name_minlength,
+                    maxlength: $.validate_name_maxlenght,
+                    regexp: $.validate_name_regexp,
+                    remote: $.validate_name_remote 
                 }
             }
         });
@@ -92,8 +95,8 @@ $(function () {
     $.reset_form = function () {
         $('#modal-form form input').val('');
         $('#modal-form form .success').removeClass('success');
-        $('#email').parents('.control-group').find('.help-block').html('enter your email address here');
-        $('#name').parents('.control-group').find('.help-block').html('enter your canistro\'s name here');
+        $('#email').parents('.control-group').find('.help-block').html($.email_info);
+        $('#name').parents('.control-group').find('.help-block').html($.name_info);
         $('.alert-success').removeClass('in').addClass('out, hide');
     };
 
@@ -125,5 +128,32 @@ $(function () {
         $.validate_form();
     };
 
-    $.build();
+    $.validate_required = null;
+    $.validate_verified = null;
+    $.validate_email = null;
+    $.validate_email_remote = null;
+    $.validate_name = null;
+    $.validate_name_minlength = null;
+    $.validate_name_maxlenght = null;
+    $.validate_name_regexp = null;
+    $.validate_name_remote = null;
+    $.name_info = null;
+    $.email_info = null;
+    $.get('/language/signup', function (data) {
+        if (data) {
+            $.validate_required = data.validate_required;
+            $.validate_verified = data.validate_verified;
+            $.validate_email = data.validate_email;
+            $.validate_email_remote = data.validate_email_remote;
+            $.validate_name = data.validate_name;
+            $.validate_name_minlength = data.validate_name_minlength;
+            $.validate_name_maxlenght = data.validate_name_maxlenght;
+            $.validate_name_regexp = data.validate_name_regexp;
+            $.validate_name_remote = data.validate_name_remote;
+            $.name_info = data.name_info;
+            $.email_info = data.email_info;
+            $.build();
+        }
+    });
+
 });

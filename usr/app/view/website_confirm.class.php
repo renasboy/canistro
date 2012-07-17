@@ -15,9 +15,9 @@ class website_confirm extends \app\view {
 
     public function execute () {
         $this->_helper->set_metas([
-            'title'         => 'confirm registration @ canistro | canistro, your personal e-commerce.',
-            'description'   => 'Confirmation page',
-            'keywords'      => 'confirm, confirm, shop, webshop, e-commerce, e-comm, personal, sell, buy, selling, buying, seller, buyer, sale, free, gratis, open source, renasboy, linux for me, linuxforme, canistro linux for me'
+            'title'         => $this->_language->get('confirm.meta_title'),
+            'description'   => $this->_language->get('confirm.meta_description'),
+            'keywords'      => $this->_language->get('confirm.meta_keywords') 
         ]);
     }
 }

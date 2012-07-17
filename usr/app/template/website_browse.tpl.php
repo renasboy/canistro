@@ -3,9 +3,9 @@
             <div class="span12">
                 <?php if (empty($stores)) { ?>
                 <div class="hero-unit">
-                    <h1>Browse all stores</h1>
-                    <p>No stores currently available :-(</p>
-                    <p>Come back later...</p>
+                    <h1><?php print $lang->get('browse.no_store_title'); ?></h1>
+                    <p><?php print $lang->get('browse.no_store_description1'); ?></p>
+                    <p><?php print $lang->get('browse.no_store_description2'); ?></p>
                 </div>
                 <?php } else {
                     
@@ -26,7 +26,7 @@
                                 <?php if (!empty($store->about)) { ?>
                                 <p><?php print substr(strip_tags($store->about), 0, 255); ?></p>
                                 <?php } ?>
-                                <p><a class="btn btn-primary pull-right" href="/<?php print $store->name; ?>">Go Shop</a> <a class="btn" href="/<?php print $store->name; ?>/contact">Contact</a></p>
+                                <p><a class="btn btn-primary pull-right" href="/<?php print $store->name; ?>"><?php print $lang->get('browse.go_shop_label'); ?></a> <a class="btn" href="/<?php print $store->name; ?>/contact"><?php print $lang->get('browse.contact_label'); ?></a></p>
                             </div>
                         </div>
                         </li>

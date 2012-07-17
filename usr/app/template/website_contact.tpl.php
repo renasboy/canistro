@@ -2,15 +2,18 @@
 
             <div class="span12">
                 <div class="hero-unit">
-                    <h1>Contact Canistro</h1>
-                    <p>Canistro is built based on open source development and your feedback is very much appreciated.</p>
+                    <h1><?php print $lang->get('contact.title1'); ?></h1>
+                    <p><?php print $lang->get('contact.description1'); ?></p>
+
+                    <h2><?php print $lang->get('contact.title2'); ?></h2>
+                    <p><?php print $lang->get('contact.description2'); ?></p>
+
+                    <h2><?php print $lang->get('contact.title3'); ?></h2>
+                    <p><?php print $lang->get('contact.description3'); ?></p>
+
+                    <h2><?php print $lang->get('contact.title4'); ?></h2>
+                    <p><?php print $lang->get('contact.description4'); ?></p>
                     
-                    <h2>email</h2>
-                    <p>c<!-- NOSPAM -->a<!-- NOSPAM -->n<!-- NOSPAM -->i<!-- NOSPAM -->s<!-- NOSPAM -->t<!-- NOSPAM -->r<!-- NOSPAM -->o<!-- NOSPAM -->.<!-- NOSPAM -->o<!-- NOSPAM -->n<!-- NOSPAM -->l<!-- NOSPAM -->i<!-- NOSPAM -->n<!-- NOSPAM -->e<!-- NOSPAM -->@<!-- NOSPAM -->g<!-- NOSPAM -->m<!-- NOSPAM -->a<!-- NOSPAM -->i<!-- NOSPAM -->l<!-- NOSPAM -->.<!-- NOSPAM -->c<!-- NOSPAM -->o<!-- NOSPAM -->m</p>
-                    <h2>github</h2>
-                    <p>github.com/renasboy/canistro</p>
-                    <h2>address</h2>
-                    <p>Amsterdam - The Netherlands</p>
 
                 </div>
 

@@ -2,13 +2,13 @@
 
             <div class="span12">
                 <div class="hero-unit">
-                    <h1>About Canistro</h1>
-                    <p>We believe the opportunity is right away and most of the time it passes unnoticed. Canistro was created to cover this gap and uncover the good deals that are next door.</p>
-                    
-                    <h2>Why use canistro?</h2>
-                    <p>Canistro is free and open source, it is improved under your request, just let the development team know what features to add next.</p>
-                    <p>Canistro is very simple to use and suitable for personal and one off selling, it can also be used by micro and small business as a micro webshop.</p>
+                    <h1><?php print $lang->get('about.title1'); ?></h1>
+                    <p><?php print $lang->get('about.description1'); ?></p>
 
+                    <h2><?php print $lang->get('about.title2'); ?></h2>
+                    <p><?php print $lang->get('about.description2_1'); ?></p>
+                    <p><?php print $lang->get('about.description2_2'); ?></p>
+                    
                 </div>
             </div>
         </div>

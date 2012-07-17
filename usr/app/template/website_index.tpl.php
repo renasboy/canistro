@@ -3,19 +3,13 @@
             <div class="span9">
                 <div class="hero-unit">
                     <h1>Canistro</h1>
-                    <h2>your personal e-commerce</h2>
-                    <p>the best deals are always closer than we imagine, canistro will help to find them.</p>
+                    <h2><?php print $lang->get('index.motto'); ?></h2>
+                    <p><?php print $lang->get('index.submotto'); ?></p>
                     <p>
-                        <a class="btn btn-success btn-large" data-target="#modal-form" href="#modal-form" data-toggle="modal">Try now for free.</a>
+                        <a class="btn btn-success btn-large" data-target="#modal-form" href="#modal-form" data-toggle="modal"><?php print $lang->get('index.try_now_label'); ?></a>
                     </p>
-                    <p class="visible-desktop">
-                        With canistro you can easily publish your products and have them avaible worldwide in matter of seconds.
-                        Canistro is completely free, it is possible to add up until 30 products and you can have as many canistro stores as you like.
-                    </p>
-                    <p class="visible-desktop">
-                        Canistro was designed for individuals, the goal is to use basic everyday actions, as sending/receiving mails and upload photos,
-                        to create a professional personal e-commerce and sell your products in the internet.
-                    </p>
+                    <p class="visible-desktop"><?php print $lang->get('index.description1'); ?></p>
+                    <p class="visible-desktop"><?php print $lang->get('index.description2'); ?></p>
 
                     <div class="pull-right social">
 
@@ -43,16 +37,14 @@
                         </script>
                     </div>
 
-                    <p>
-                        We improve canistro based on your feedback, let us know what's next.
-                    </p>
+                    <p><?php print $lang->get('index.description3'); ?></p>
 
                 </div>
             </div>
 
             <div class="span3 visible-desktop">
-                <h2>Highlight canistro</h2>
-                <p>This is the highlight canistro of the month.</p>
+                <h2><?php print $lang->get('index.highlight_title'); ?></h2>
+                <p><?php print $lang->get('index.highlight_intro'); ?></p>
                 <ul class="thumbnails">
                     <li class="span3">
                     <?php
@@ -66,7 +58,7 @@
                             <?php if (!empty($highlight->about)) { ?>
                             <p><?php print substr(strip_tags($highlight->about), 0, 255); ?></p>
                             <?php } ?>
-                            <p><a class="btn btn-primary pull-right" href="/<?php print $highlight->name; ?>">Go Shop</a> <a class="btn" href="/<?php print $highlight->name; ?>/contact">Contact</a></p>
+                            <p><a class="btn btn-primary pull-right" href="/<?php print $highlight->name; ?>"><?php print $lang->get('index.highlight_go_shop_label'); ?></a> <a class="btn" href="/<?php print $highlight->name; ?>/contact"><?php print $lang->get('index.highlight_contact_label'); ?></a></p>
                         </div>
                     </div>
                     <?php } ?>
