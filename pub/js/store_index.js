@@ -16,11 +16,13 @@ $(function () {
                 element.parents('.control-group').find('.help-block').html(error);
             },
             success: function (label) {
-                $('#' + label.attr('for')).parents('.control-group').find('.help-block').html('This field is verified');
+                $('#' + label.attr('for')).parents('.control-group').find('.help-block').html($.field_verified);
             },
             errorElement: 'span',
             ignore: null // This is necessary to not ignore type="hidden"
         });
+
+        $.validator.messages.required = $.field_required;
 
         $('#modal-form-checkout form').validate({
             rules: {
@@ -31,7 +33,7 @@ $(function () {
             },
             messages: {
                 email: {
-                    email: 'Please enter a valid email here.'
+                    email: $.valid_email
                 }
             }
         });
@@ -54,7 +56,13 @@ $(function () {
                 }
             },
             messages: {
-                    maxlength: 'Please enter a name with maximum 30 chars.',
+                price: {
+                    digits: $.valid_digits,
+                    min: $.valid_min 
+                },
+                description: {
+                    maxlength: $.valid_maxlength,
+                }
             }
         });
     };
@@ -77,7 +85,7 @@ $(function () {
         $('#modal-form-checkout form input, #modal-form-checkout form textarea').val('');
         $('#modal-form-checkout form .success').removeClass('success');
         $('#modal-form-checkout form .error').removeClass('error');
-        $('#email').parents('.control-group').find('.help-block').html('enter your email address here');
+        $('#email').parents('.control-group').find('.help-block').html($.info_email);
         $('#modal-form-checkout .alert-success').removeClass('in').addClass('out, hide');
     };
 
@@ -129,8 +137,8 @@ $(function () {
                     html += '<thead>';
                     html += '<tr>';
                     html += '<th>#</th>';
-                    html += '<th>product name</th>';
-                    html += '<th>price</th>';
+                    html += '<th>' + $.product_name + '</th>';
+                    html += '<th>' + $.product_price + '</th>';
                     html += '<th>&nbsp;</th>';
                     html += '</tr>';
                     html += '</thead>';
@@ -148,13 +156,13 @@ $(function () {
 
                     html += '<tr>';
                     html += '<td>&nbsp;</td>';
-                    html += '<td>TOTAL</td>';
+                    html += '<td>' + $.cart_total + '</td>';
                     html += '<td>&euro;' + data.total + '</td>';
                     html += '<td>&nbsp;</td>';
                     html += '</tr>';
 
                     html += '<tr>';
-                    html += '<td colspan="4" class="checkout"><a class="btn-success btn-large btn pull-right" data-target="#modal-form-checkout" href="#modal-form-checkout" data-toggle="modal"><i class="icon-ok icon-white"></i> CHECKOUT</a></td>';
+                    html += '<td colspan="4" class="checkout"><a class="btn-success btn-large btn pull-right" data-target="#modal-form-checkout" href="#modal-form-checkout" data-toggle="modal"><i class="icon-ok icon-white"></i> ' + $.cart_checkout + '</a></td>';
                     html += '</tr>';
 
                     html += '</tbody>';
@@ -164,7 +172,7 @@ $(function () {
             else {
                 var total   = '0.00';
                 var qty     = 0;
-                var html    = '<h3>I am empty!</h3>';
+                var html    = '<h3>' + $.cart_empty + '</h3>';
 
             }
             setTimeout("$.turn_off_cart();", 500);
@@ -275,16 +283,16 @@ $(function () {
             max_file_size : '3mb',
             browse_button : 'upload',
             filters : [
-                {title : "Afbeeldingen", extensions : "jpg,jpeg,gif,png"}
+                {title : "Images", extensions : "jpg,jpeg,gif,png"}
             ]
         });
         uploader.bind('Error', function (uploader, error) {
             var message = 'error';
             if (error.message == 'File extension error.') {
-                message = 'This image is not a valid image, please use jpg, gif or png.';
+                message = $.upload_type_error;
             }
             else if (error.message == 'File size error.') {
-                message = 'This image is to heavy in size, please limit to 3MB.';
+                message = $.upload_size_error;
             }
             $('#modal-form-product .alert-error').removeClass('out, hide').addClass('in').alert();
             setTimeout(function () {$('#modal-form-product .alert-error').removeClass('in').addClass('out, hide');}, 3000);
@@ -383,5 +391,37 @@ $(function () {
         }
     };
 
-    $.build();
+    $.field_verified = null;
+    $.field_required = null;
+    $.valid_email = null;
+    $.valid_digits = null;
+    $.valid_min = null;
+    $.valid_maxlength = null;
+    $.info_email = null;
+    $.product_name = null;
+    $.product_price = null;
+    $.cart_total = null;
+    $.cart_checkout = null;
+    $.cart_empty = null;
+    $.upload_type_error = null;
+    $.upload_size_error = null;
+    $.get('/language/store_js', function (data) {
+        if (data) {
+            $.field_verified = data.field_verified;
+            $.field_required = data.field_required;
+            $.valid_email = data.valid_email;
+            $.valid_digits = data.valid_digits;
+            $.valid_min = data.valid_min;
+            $.valid_maxlength = data.valid_maxlength;
+            $.info_email = data.info_email;
+            $.product_name = data.product_name;
+            $.product_price = data.product_price;
+            $.cart_total = data.cart_total;
+            $.cart_checkout = data.cart_checkout;
+            $.cart_empty = data.cart_empty;
+            $.upload_type_error = data.upload_type_error;
+            $.upload_size_error = data.upload_size_error;
+            $.build();
+        }
+    });
 });

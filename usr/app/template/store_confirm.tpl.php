@@ -3,8 +3,8 @@
             <div class="span12">
                 <div class="hero-unit">
                     <?php
-                    print $helper->title(sprintf('Confirmation at %s', $store_name));
-                    print $helper->description('Thank you, your order is confirmed!');
+                    print $helper->title(sprintf($lang->get('store_confirm.title'), $store_name));
+                    print $helper->description($lang->get('store_confirm.description'));
                     ?>
                 </div>
             </div>

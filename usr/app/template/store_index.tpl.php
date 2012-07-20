@@ -4,13 +4,16 @@
 
             <div class="span12">
                 <div class="hero-unit">
-                    <h1>This is the <?php print $store_name; ?> store</h1>
+                    <h1><?php printf($lang->get('store_index.title'), $store_name); ?></h1>
                     <p>
-                    <?php if (!empty($admin)) { ?>
-                    In order to create your first product just click the add product button.
-                    <?php } else { ?>
-                    There are no current products in the store, and this means they are probably being prepared right now, so please come back later.
-                    <?php } ?>
+                    <?php
+                    if (!empty($admin)) {
+                        $lang->get('store_index.no_products_admin');
+                    }
+                    else {
+                        $lang->get('store_index.no_products');
+                    }
+                    ?>
                     </p>
                 </div>
             </div>
@@ -27,11 +30,11 @@
                             <div class="carousel-caption">
                                 <p class="pull-right">
                                 <?php if (!empty($admin)) { ?>
-                                <a href="#" class="btn btn-large product-edit"><i class="icon-pencil"></i> EDIT</a>
+                                <a href="#" class="btn btn-large product-edit"><i class="icon-pencil"></i> <?php print $lang->get('store_index.edit_label'); ?></a>
                                 <?php if (!empty($product->active)) { ?>
-                                <a href="#" class="btn btn-large product-flag"><i class="icon-off"></i> ON</a>
+                                <a href="#" class="btn btn-large product-flag"><i class="icon-off"></i> <?php print $lang->get('store_index.on_label'); ?></a>
                                 <?php } else { ?>
-                                <a href="#" class="btn btn-large product-flag"><i class="icon-off"></i> OFF</a>
+                                <a href="#" class="btn btn-large product-flag"><i class="icon-off"></i> <?php print $lang->get('store_index.off_label'); ?></a>
                                 <?php } ?>
                                 <?php } ?>
                                 <a class="btn btn-large btn-primary add-cart" href="#" data-product="<?php print $product->id; ?>"><i class="icon-plus icon-white"></i> &euro;<?php print $product->price; ?></a>
@@ -50,7 +53,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="span9 checkout"><a class="btn-success btn-large btn pull-right" data-target="#modal-form-checkout" href="#modal-form-checkout" data-toggle="modal"><i class="icon-ok icon-white"></i> CHECKOUT</a></div>
+                    <div class="span9 checkout"><a class="btn-success btn-large btn pull-right" data-target="#modal-form-checkout" href="#modal-form-checkout" data-toggle="modal"><i class="icon-ok icon-white"></i> <?php print $lang->get('store_index.checkout_label'); ?></a></div>
                 </div>
 
             </div>

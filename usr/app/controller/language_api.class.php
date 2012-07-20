@@ -9,7 +9,7 @@ class language_api extends \app\simple_controller {
 
     protected function _validate_input () {
 
-        $this->_validator->validate('is_in_list', $this->_input['section'], ['signup']);
+        $this->_validator->validate('is_in_list', $this->_input['section'], ['signup', 'store_js']);
 
         if ($this->_validator->error()) {
             $this->_error->bad_request('language api:' . $this->_validator->error());

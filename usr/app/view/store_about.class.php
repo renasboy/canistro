@@ -35,9 +35,9 @@ class store_about extends \app\view {
         $this->set('store', $store);
 
         $this->_helper->set_metas([
-            'title'         => sprintf('about %s @ canistro | canistro, your personal e-commerce.', $store->name),
-            'description'   => sprintf('What is %s? Why everyone is using %s? How can I use %s?', $store->name, $store->name, $store->name),
-            'keywords'      => str_replace('%s', $store->name, 'about, about %s, what is %s, why %s, how %s, questions, answers, faq, %s faq, %s history, %s team, %s, shop, webshop, e-commerce, e-comm, personal, sell, buy, selling, buying, seller, buyer, sale, free, gratis, open source, renasboy, linux for me, linuxforme, canistro linux for me')
+            'title'         => sprintf($this->_language->get('store_about.meta_title'), $store->name),
+            'description'   => sprintf($this->_language->get('store_about.meta_description'), $store->name, $store->name, $store->name),
+            'keywords'      => str_replace('%s', $store->name, $this->_language->get('store_about.meta_keywords'))
         ]);
     }
 }

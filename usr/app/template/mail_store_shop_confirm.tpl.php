@@ -1,17 +1,12 @@
-<?php $link = sprintf('http://%s/%s/confirm/%d/%s', $conf->get('base_host'), $name, $shop_id, $token); ?>
-<p>Hi there,</p>
+<?php
+$host   = sprintf('http://%s', $conf->get('base_host'));
+$store  = sprintf('%s/%s', $host, $name);
+$link   = sprintf('%s/confirm/%d/%s', $store, $shop_id, $token);
 
-<p>Your email address was used to place an order at the store <a href="<?php print sprintf('http://%s/%s', $conf->get('base_host'), $name); ?>"><?php print $name; ?></a> hosted at <a href="http://<?php print $conf->get('base_host'); ?>">canistro, your personal e-commerce</a>.</p>
-
-<p>If this order was indeed placed by you, please follow this <a href="<?php print $link; ?>">link</a> to confirm it.</p>
-
-<p>
-If the link for any reason does not work, copy the following address to your browser's address bar:
-<?php print $link; ?>
-</p>
-
-<p>We sent this email for your security, to make sure no one else is using your email to make purchages.</p>
-
-<p>Thank you very much from <?php print $name; ?> team.</p>
-
-<p>Thank you very very much from canistro team.</p>
+print $helper->description($lang->get('mail_shop_confirm.line1')); 
+print $helper->description(sprintf($lang->get('mail_shop_confirm.line2'), $store, $name, $host)); 
+print $helper->description(sprintf($lang->get('mail_shop_confirm.line3'), $link)); 
+print $helper->description(sprintf($lang->get('mail_shop_confirm.line4'), $link)); 
+print $helper->description($lang->get('mail_shop_confirm.line5')); 
+print $helper->description(sprintf($lang->get('mail_shop_confirm.line6'), $name)); 
+print $helper->description($lang->get('mail_shop_confirm.line7')); 

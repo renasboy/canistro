@@ -35,9 +35,9 @@ class store_info extends \app\view {
         $this->set('store', $store);
 
         $this->_helper->set_metas([
-            'title'         => sprintf('payment and delivery by %s @ canistro | canistro, your personal e-commerce.', $store->name),
-            'description'   => sprintf('How to pay and ship your order from %s.', $store->name),
-            'keywords'      => str_replace('%s', $store->name, 'payment %s, delivery %s, payment, delivery, ship, shipment, conditions, canistro, personal e-commerce, personal shop, personal webshop, personal e-comm, shop, webshop, e-commerce, e-comm, personal, sell, buy, selling, buying, seller, buyer, sale, free, gratis, open source, renasboy, linux for me, linuxforme, canistro linux for me')
+            'title'         => sprintf($this->_language->get('store_info.meta_title'), $store->name),
+            'description'   => sprintf($this->_language->get('store_info.meta_description'), $store->name),
+            'keywords'      => str_replace('%s', $store->name, $this->_language->get('store_info.meta_keywords'))
         ]);
     }
 }

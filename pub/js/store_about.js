@@ -22,6 +22,8 @@ $(function () {
             ignore: null // This is necessary to not ignore type="hidden"
         });
 
+        $.validator.messages.required = $.validate_required;
+
         $('form').validate({
             rules: {
                 about: {
@@ -52,16 +54,24 @@ $(function () {
         $.sound_incorrect   = new Audio('/snd/incorrect.wav');
         $.sound_message     = new Audio('/snd/message.wav');
 
-        // admin events if admin button is present
-        if ($('.content-edit').length) {
-            // make html5 editor
-            $('.hero-unit textarea').css({'height':'200px'}).wysihtml5({
-                height: '200px'
-            });
-            $(document).off('click', '.content-edit').on('click', '.content-edit', $.save_content);
-            $.validate_form();
-        }
+        // make html5 editor
+        $('.hero-unit textarea').css({'height':'200px'}).wysihtml5({
+            height: '200px'
+        });
+        $(document).off('click', '.content-edit').on('click', '.content-edit', $.save_content);
+        $.validate_form();
     };
 
-    $.build();
+    // admin events if admin button is present
+    if ($('.content-edit').length) {
+
+        $.validate_required = null;
+        $.get('/language/signup', function (data) {
+            if (data) {
+                $.validate_required = data.validate_required;
+                $.build();
+            }
+        });
+
+    }
 });
