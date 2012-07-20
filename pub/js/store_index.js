@@ -373,9 +373,6 @@ $(function () {
         $(document).off('show', '#modal-form-checkout').on('show', '#modal-form-checkout', $.show_form);
         $(document).off('hidden', '#modal-form-checkout').on('hidden', '#modal-form-checkout', $.reset_checkout_form);
         $('#product-carousel').carousel();
-        $('#product-carousel .active img').load(function () {
-            setTimeout($.expand_nav, 1000);
-        });
         $.update_cart('get');
         $.validate_form();
 
@@ -421,7 +418,12 @@ $(function () {
             $.cart_empty = data.cart_empty;
             $.upload_type_error = data.upload_type_error;
             $.upload_size_error = data.upload_size_error;
-            $.build();
         }
+        $.build();
     });
+
+    $('#product-carousel .active img').load(function () {
+        setTimeout($.expand_nav, 1000);
+    });
+
 });
