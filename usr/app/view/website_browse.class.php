@@ -9,7 +9,10 @@ class website_browse extends \app\view {
 
     protected $_css = [];
 
-    protected $_js = [];
+    protected $_js = [
+        '/js/jquery.masonry.js',
+        '/js/website_browse.js'
+    ];
 
     public function execute () {
 

@@ -1,12 +1,13 @@
-        <div class="row">
+        <div class="row browse">
 
-            <div class="span12">
                 <?php if (empty($stores)) { ?>
+            <div class="span12">
                 <div class="hero-unit">
                     <h1><?php print $lang->get('browse.no_store_title'); ?></h1>
                     <p><?php print $lang->get('browse.no_store_description1'); ?></p>
                     <p><?php print $lang->get('browse.no_store_description2'); ?></p>
                 </div>
+            </div>
                 <?php } else {
                     
                     foreach ($stores as $store) {
@@ -35,6 +36,5 @@
                     <?php } ?>
 
                 <?php } ?>
-            </div>
 
         </div>
