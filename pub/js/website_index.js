@@ -77,14 +77,13 @@ $(function () {
         });
     };
 
-    var sound_incorrect = new Audio('/snd/incorrect.wav');
     // method done while clicking to send the form
     $.done = function (e) {
         e.preventDefault();
         _gaq.push(['_trackEvent', 'canistro-home', 'done'])
         $('#modal-form form').validate();
         if (!$('#modal-form form').valid()) {
-            sound_incorrect.play();
+            $.sound_incorrect.play();
             return false;
         }
         _gaq.push(['_trackEvent', 'canistro-home', 'done-valid'])
@@ -100,27 +99,29 @@ $(function () {
         $('.alert-success').removeClass('in').addClass('out, hide');
     };
 
-    var sound_message = new Audio('/snd/message.wav');
     // submit the form after successful validation
     $.submit = function (e) {
         e.preventDefault();
         $.post('/signup', $('#modal-form form').serializeArray(), function (data) {
             if (data == 'success') {
                 $('.alert-success').removeClass('out, hide').addClass('in').alert();
-                sound_message.play();
+                $.sound_message.play();
                 setTimeout(function () {$('#modal-form').modal('hide');}, 5000);
                 _gaq.push(['_trackEvent', 'canistro-home', 'success'])
             }
         });
     };
 
-    var sound_modal = new Audio('/snd/powerup.wav');
     $.track = function () {
-        sound_modal.play();
+        $.sound_modal.play();
         _gaq.push(['_trackEvent', 'canistro-home', 'try free'])
     };
 
     $.build = function () {
+        $.sound_incorrect = new Audio('/snd/incorrect.wav');
+        $.sound_message   = new Audio('/snd/message.wav');
+        $.sound_modal     = new Audio('/snd/powerup.wav');
+
         $(document).off('click', '#done').on('click', '#done', $.done);
         $(document).off('submit', '#modal-form form').on('submit', '#modal-form form', $.submit);
         $(document).off('click', '.btn-success').on('click', '.btn-success', $.track);
