@@ -8,7 +8,7 @@
             <div class="alert alert-block alert-success fade out hide">
                 <button data-dismiss="alert" class="close" type="button">×</button>
                 <h4 class="alert-heading"><?php print $lang->get('store_product.success_title'); ?></h4>
-                <p><?php printf($lang->get('store_product.success_message'), $store_name; ?></p>
+                <p><?php printf($lang->get('store_product.success_message'), $store_name); ?></p>
             </div>
 
             <div class="alert alert-block alert-error fade out hide">
