@@ -32,10 +32,11 @@ class store_cart extends \app\view {
         $total_qty  = 0;
         foreach ($products as $key => $product) {
             $products[$key]->quantity   = $cart[$product->id];
-            $products[$key]->subtotal   = number_format($product->price * $cart[$product->id], 2);
+            $products[$key]->subtotal   = $product->price * $cart[$product->id];
+            $products[$key]->price      = number_format($products[$key]->price, 2, ',', '.');
             $total_qty                  += $products[$key]->quantity;
             $total                      += $products[$key]->subtotal;
         }
-        $this->set('cart', [ 'products' => $products, 'quantity' => $total_qty, 'total' => number_format($total, 2) ]);
+        $this->set('cart', [ 'products' => $products, 'quantity' => $total_qty, 'total' => number_format($total, 2, ',', '.') ]);
     }
 }
