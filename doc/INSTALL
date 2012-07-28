@@ -2,6 +2,18 @@ This is the INSTALL file.
 
 Canistro is still in development phase, so for now there is only basic functionality.
 
+* Requirements
+
+Canistor is based on the php mysql micro framework therefore the requirements are the same:
+
+gnu/linux
+php 5.4
+libmemcached 1.0.4
+memcached 1.4.13
+memcached extension 2.0.0-dev
+apache httpd 2.4 (mod_rewrite)
+mysql 5.1.57
+
 * Quickstart:
 
 bash <(wget -q -O - https://raw.github.com/renasboy/canistro/master/bin/install) DIRECTORY_TO_INSTALL
