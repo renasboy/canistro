@@ -1,13 +1,15 @@
 This is the INSTALL file.
 
-Canistro is still in development phase, so for now only templates are avaiable.
-
-Templates are using the php mysql micro framework, twitter bootstrap and jquery.
+Canistro is still in development phase, so for now there is only basic functionality.
 
 * Quickstart:
 
 bash <(wget -q -O - https://raw.github.com/renasboy/canistro/master/bin/install) DIRECTORY_TO_INSTALL
 
 Where DIRECTORY_TO_INSTALL is the location where the application will be installed.
+
+While installing I assume you are geek in order to follow what the install script is doing in case it fails.
+
+Will work on making it bullet proof...
 
 * Description of the steps to follow...
