@@ -19,6 +19,15 @@ fi
 dir=`readlink -f $1`
 cd $dir
 
+trap cleanexit EXIT
+
+cleanexit () {
+    if test -d "$dir"; then
+        cd
+        rm -rf "$dir"
+    fi
+}
+
 echo CLONING REPOS
 git clone -q https://github.com/renasboy/php-mysql-micro-framework-core core
 git clone -q https://github.com/renasboy/php-mysql-micro-framework-api api
