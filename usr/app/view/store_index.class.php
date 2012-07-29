@@ -45,9 +45,21 @@ class store_index extends \app\view {
 
         $this->set('store', $store);
 
+        
+        if (!empty($store->about)) {
+            $description    = str_replace(chr(10), ' ', strip_tags($store->about));
+            $pos            = strpos($description, '.');
+            if ($pos !== FALSE) {
+                $description    = substr($description, 0, $pos);
+            }
+        }
+        else {
+            $description = sprintf($this->_language->get('store_index.meta_description'), $store->name);
+        }
+
         $this->_helper->set_metas([
             'title'         => sprintf($this->_language->get('store_index.meta_title'), $store->name),
-            'description'   => !empty($store->about) ? strip_tags($store->about) : sprintf($this->_language->get('store_index.meta_description'), $store->name),
+            'description'   => $description,
             'keywords'      => $store->name . ', ' . $this->_language->get('store_index.meta_keywords') 
         ]);
     }
