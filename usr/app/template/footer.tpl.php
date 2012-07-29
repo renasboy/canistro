@@ -16,8 +16,8 @@
                 }
                 ?>
 
-                <a href="/">canistro online</a> 2012 - copyleft by linux for me 2009 - <?php print date('Y'); ?><br>
-                designed and build by renasboy with <a href="https://github.com/renasboy/php-mysql-micro-framework">php mysql micro framework</a>.<br>
+                <a href="/">canistro online</a> 2012 - copyleft by <a href="http://linuxforme.com">linux for me</a> 2009 - <?php print date('Y'); ?><br>
+                designed and build by <a href="http://linuxforme.com/cv">renasboy</a> with <a href="https://github.com/renasboy/php-mysql-micro-framework">php mysql micro framework</a>.<br>
                 </p>
 
                 <?php if (!empty($store_name)) { ?>
