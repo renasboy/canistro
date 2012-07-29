@@ -3,10 +3,6 @@ namespace app\controller;
 
 class website_confirm extends \app\simple_controller {
 
-    protected $_dependencies    = [
-        'mailer'                => null
-    ];
-
     protected $_default_input   = [
         'id'                    => null,
         'token'                 => null
