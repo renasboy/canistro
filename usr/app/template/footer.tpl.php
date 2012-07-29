@@ -31,12 +31,12 @@
                           js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
                           fjs.parentNode.insertBefore(js, fjs);
                         }(document, 'script', 'facebook-jssdk'));</script>
-                        <div class="fb-like" data-send="false" data-layout="box_count" data-width="20" data-show-faces="false"></div>
+                        <div class="fb-like" data-send="false" data-layout="box_count" data-href="http://<?php print $conf->get('base_host') . '/' . $store_name; ?>" data-width="20" data-show-faces="false"></div>
 
-                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-lang="en">Tweet</a>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://<?php print $conf->get('base_host') . '/' . $store_name; ?>" data-count="vertical" data-lang="en">Tweet</a>
                         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
-                        <div class="g-plusone" data-size="tall"></div>
+                        <div class="g-plusone" data-size="tall" data-href="http://<?php print $conf->get('base_host') . '/' . $store_name; ?>"></div>
                         <script type="text/javascript">
                           window.___gcfg = {lang: 'en-GB'};
                           (function() {
