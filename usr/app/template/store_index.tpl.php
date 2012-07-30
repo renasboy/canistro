@@ -37,7 +37,7 @@
                                 <a href="#" class="btn btn-large product-flag"><i class="icon-off"></i> <?php print $lang->get('store_index.off_label'); ?></a>
                                 <?php } ?>
                                 <?php } ?>
-                                <a class="btn btn-large btn-primary add-cart" href="#" data-product="<?php print $product->id; ?>"><i class="icon-plus icon-white"></i> &euro;<?php print $product->price; ?></a>
+                                <a class="btn btn-large btn-primary add-cart" href="#" data-product="<?php print $product->id; ?>"><i class="icon-plus icon-white"></i> <?php print $store_currency; ?><?php print $product->price; ?></a>
                                 </p>
                                 <h4><?php print $product->name; ?></h4>
                                 <?php if (!empty($product->description)) { ?>
@@ -67,7 +67,7 @@
                         <div class="carousel-inner">
                         <a data-id="<?php print $product->id; ?>" href="#" data-slide="<?php print $key; ?>"><?php print str_replace('height="146"', null, $helper->image($product->img, $product->name, 260, 146)); ?></a>
                         <div class="carousel-caption">
-                            <a class="btn btn-mini btn-primary pull-right add-cart" href="#" data-product="<?php print $product->id; ?>"><i class="icon-plus icon-white"></i> &euro;<?php print $product->price; ?></a>
+                            <a class="btn btn-mini btn-primary pull-right add-cart" href="#" data-product="<?php print $product->id; ?>"><i class="icon-plus icon-white"></i> <?php print $store_currency; ?><?php print $product->price; ?></a>
                             <h5 class="visible-desktop"><?php print $product->name; ?></h5>
                         </div>
                         </div>

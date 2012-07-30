@@ -42,7 +42,7 @@
                         <label class="control-label" for="price"><?php print $lang->get('store_product.price_label'); ?></label>
                         <div class="controls">
                             <div class="input-append input-prepend">
-                            <span class="add-on">&euro;</span><input type="text" class="span1" name="price" id="price" placeholder="100"><span class="add-on">.00</span>
+                            <span class="add-on"><?php print $store_currency; ?></span><input type="text" class="span1" name="price" id="price" placeholder="100"><span class="add-on">.00</span>
                             </div>
                             <p class="help-block"><?php print $lang->get('store_product.price_info'); ?></p>
                         </div>

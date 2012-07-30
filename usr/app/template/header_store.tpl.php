@@ -10,17 +10,35 @@
                     <li class="contact"><a href="/<?php print $store_name; ?>/contact"><?php print $lang->get('global.menu_contact'); ?></a></li>
                 </ul>
 
-                <!-- cart is here -->
+                <?php if (!empty($show_cart)) { ?>
                 <ul class="nav pull-right">
+
+                    <?php if (!empty($admin)) { ?>
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-tag icon-white"></i> <?php print $lang->get('global.menu_currency'); ?><b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/<?php print $store_name; ?>/currency/EUR">Euro (&euro;)</a></li>
+                            <li><a href="/<?php print $store_name; ?>/currency/USD">Dollar ($)</a></li>
+                            <li><a href="/<?php print $store_name; ?>/currency/GBP">Pounds (&pound;)</a></li>
+                            <li><a href="/<?php print $store_name; ?>/currency/CAD">Canadian Dollar ($)</a></li>
+                            <li><a href="/<?php print $store_name; ?>/currency/AUD">Australian Dollar ($)</a></li>
+                            <li><a href="/<?php print $store_name; ?>/currency/BRL">Real (R$)</a></li>
+                            <li><a href="/<?php print $store_name; ?>/currency/INR">Rupee (₹ )</a></li>
+                            <li><a href="/<?php print $store_name; ?>/currency/RUB">Ruble (руб)</a></li>
+                        </ul>
+                    </li>
+                    <?php } ?>
                     <li class="divider-vertical"></li>
-                    <li class="cart-total"><a>&euro;0.00</a></li>
+                    <li class="cart-total" data-currency="<?php print $store_currency; ?>"><a><?php print $store_currency; ?>0.00</a></li>
                     <li class="divider-vertical"></li>
+
+                    <!-- cart is here -->
                     <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-shopping-cart icon-white"></i> <span class="label label-success">0</span> <?php print $lang->get('global.menu_cart'); ?><b class="caret"></b></a>
-                        <div class="dropdown-menu span4">
+                        <div class="dropdown-menu span4 cart-content">
                             <h3><?php print $lang->get('global.menu_cart_empty'); ?></h3>
                         </div>
                     </li>
                 </ul>
+                <?php } ?>
 
             </div>
         </div>

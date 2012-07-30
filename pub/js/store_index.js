@@ -114,6 +114,7 @@ $(function () {
 
     var interval_cart   = null;
     var wait_cart       = false;
+    var currency        = $('.cart-total').data('currency');
     $.update_cart = function (action, id) {
         if (wait_cart) {
             return false;
@@ -149,7 +150,7 @@ $(function () {
                         html += '<tr>';
                         html += '<td>' + product.quantity +'</td>';
                         html += '<td><a href="">' + product.name + '</a></td>';
-                        html += '<td>&euro;' + product.price + '</td>';
+                        html += '<td>' + currency + product.price + '</td>';
                         html += '<td><a href="#"><i class="icon-trash" data-product="' + product.id + '"></i></a></td>';
                         html += '</tr>';
                     }
@@ -157,7 +158,7 @@ $(function () {
                     html += '<tr>';
                     html += '<td>&nbsp;</td>';
                     html += '<td>' + $.cart_total + '</td>';
-                    html += '<td>&euro;' + data.total + '</td>';
+                    html += '<td>' + currency + data.total + '</td>';
                     html += '<td>&nbsp;</td>';
                     html += '</tr>';
 
@@ -176,9 +177,9 @@ $(function () {
 
             }
             setTimeout("$.turn_off_cart();", 500);
-            $('.cart-total a').html('&euro;' + total)
+            $('.cart-total a').html(currency + total)
             $('.label-warning, .label-success').html(parseInt(qty));
-            $('.dropdown-menu').html(html);
+            $('.dropdown-menu.cart-content').html(html);
             if (qty == 0) {
                 $.old_checkout_height = $('.checkout').height();
                 $('.checkout').animate({'height': 0});
