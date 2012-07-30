@@ -1,4 +1,4 @@
-        <div class="row browse">
+        <div class="row browse-grid">
 
                 <?php if (empty($stores)) { ?>
             <div class="span12">

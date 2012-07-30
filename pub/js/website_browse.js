@@ -1,5 +1,5 @@
 $(function(){
-    var container = $('.browse');
+    var container = $('.browse-grid');
     container.imagesLoaded( function(){
         container.masonry({
             itemSelector : 'div.span3'
